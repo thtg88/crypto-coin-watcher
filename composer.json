@@ -1,0 +1,83 @@
+{
+    "name": "thtg88/crypto-coin-watcher",
+    "type": "project",
+    "description": "A watcher for your favourite coins.",
+    "keywords": ["crypto"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.12",
+        "laravel/tinker": "^2.5"
+    },
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "brianium/paratest": "^6.3",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "laravel/telescope": "^4.4",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3.3",
+        "psalm/plugin-laravel": "^1.4",
+        "thtg88/laravel-db-scaffold-commands": "^0.3.0",
+        "vimeo/psalm": "^4.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "[[ -d .git ]] && vendor/bin/cghooks update || true"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "optimize-laravel-cmd": [
+            "@php artisan event:cache",
+            "@php artisan config:cache",
+            "@php artisan route:cache"
+        ],
+        "ci": [
+            "@check-style",
+            "@stan",
+            "@test --stop-on-failure"
+        ],
+        "check-style": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --dry-run",
+        "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no",
+        "stan": "vendor/bin/psalm --no-cache",
+        "test": "@php artisan test --parallel --recreate-databases"
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --dry-run"
+        },
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
