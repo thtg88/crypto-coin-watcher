@@ -19,6 +19,14 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(BaseTelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        // DB::listen(static function ($query) {
+        //     dump(
+        //         $query->sql,
+        //         $query->bindings,
+        //         // $query->time
+        //     );
+        // });
     }
 
     /**
