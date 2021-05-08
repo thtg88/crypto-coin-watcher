@@ -15,8 +15,8 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('coin_id')->constrained();
-            $table->foreignId('currency_id')->constrained();
+            $table->foreignId('coin_id')->index()->constrained();
+            $table->foreignId('currency_id')->index()->constrained();
             $table->unsignedBigInteger('value');
             $table->timestamp('value_last_updated_at');
             $table->timestamps();
