@@ -14,7 +14,7 @@ abstract class ScheduledJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function scheduleNext(array $args = [], ?Carbon $next_executes_at = null): void
+    public function scheduleNext(?Carbon $next_executes_at = null): void
     {
         if (!config('app.scheduled_jobs.enabled')) {
             return;
@@ -22,12 +22,17 @@ abstract class ScheduledJob implements ShouldQueue
 
         $next_executes_at ??= $this->nextExecutesAt();
 
-        static::dispatch(...$args)->delay($next_executes_at);
+        static::dispatch(...$this->getArgs())->delay($next_executes_at);
     }
 
     public function middleware(): array
     {
         return [new ScheduleNext];
+    }
+
+    protected function getArgs(): array
+    {
+        return [];
     }
 
     abstract protected function nextExecutesAt(): Carbon;
