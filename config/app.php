@@ -236,6 +236,9 @@ return [
         'bitcoin',
         'ethereum',
         'dogecoin',
+        'matic-network',
+        'stellar',
+        'yearn-finance',
     ],
 
     'scheduled_jobs' => [
