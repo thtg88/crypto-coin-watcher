@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\FetchCoinPriceJob;
 use App\Models\Coin;
 use App\Models\Currency;
+use Illuminate\Support\Facades\Log;
 
 class CoinObserver
 {
@@ -19,6 +20,8 @@ class CoinObserver
         if (!in_array($coin->external_id, config('app.enabled_coins'))) {
             return;
         }
+
+        Log::info("Fetching {$coin->external_id} price...");
 
         $currencies = Currency::select('symbol')->pluck('symbol')->toArray();
 
