@@ -30,9 +30,7 @@ class FetchNewCoinsPricesCommand extends Command
      */
     public function handle(): int
     {
-        $coin_without_prices = Coin::doesntHave('prices')
-            ->whereIn('external_id', config('app.enabled_coins', []))
-            ->get();
+        $coin_without_prices = Coin::doesntHave('prices')->enabled()->pluck('external_id');
         if ($coin_without_prices->isEmpty()) {
             $this->warn('No new coin prices to fetch.');
 
