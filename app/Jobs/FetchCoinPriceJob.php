@@ -7,20 +7,15 @@ use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
 use Exception;
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 
-class FetchCoinPriceJob implements ShouldQueue
+class FetchCoinPriceJob extends ScheduledJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private Client $coin_gecko_client;
+
+    private bool $succeeded = false;
 
     public function __construct(
         private string $coin_external_id,
@@ -36,8 +31,6 @@ class FetchCoinPriceJob implements ShouldQueue
         try {
             $coin_prices_data = $this->coinPrices($coin);
         } catch (Exception) {
-            $this->redispatchAt(now()->addDay());
-
             return;
         }
 
@@ -52,22 +45,17 @@ class FetchCoinPriceJob implements ShouldQueue
             $this->createPrice($coin, $currency, $coin_price_data);
         }
 
-        $this->redispatchAt(now()->addMinutes(10));
+        $this->succeeded = true;
     }
 
-    public function redispatchAt(Carbon $date): void
+    protected function nextExecutesAt(): Carbon
     {
-        if (config('app.scheduled_jobs.enabled')) {
-            self::dispatchAt($this->coin_external_id, $this->currencies, $date);
-        }
+        return $this->succeeded ? now()->addMinutes(10) : now()->addDay();
     }
 
-    public static function dispatchAt(
-        string $coin_external_id,
-        array $currencies,
-        Carbon $date,
-    ): void {
-        self::dispatch($coin_external_id, $currencies)->delay($date);
+    protected function getNextArgs(): array
+    {
+        return [$this->coin_external_id, $this->currencies];
     }
 
     private function coin(): Coin
