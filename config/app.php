@@ -231,4 +231,7 @@ return [
 
     ],
 
+    'scheduled_jobs' => [
+        'enabled' => (bool) env('SCHEDULED_JOBS_ENABLED', true),
+    ],
 ];
