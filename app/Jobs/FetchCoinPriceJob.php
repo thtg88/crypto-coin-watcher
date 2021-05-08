@@ -50,7 +50,11 @@ class FetchCoinPriceJob extends ScheduledJob
 
     protected function nextExecutesAt(): Carbon
     {
-        return $this->succeeded ? now()->addMinutes(10) : now()->addDay();
+        return $this->succeeded === false ?
+            now()->addDay() :
+            now()->addSeconds(
+                config('app.scheduled_jobs.fetch_coin_price_frequency')
+            );
     }
 
     protected function getNextArgs(): array
