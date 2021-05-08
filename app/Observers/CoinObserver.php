@@ -11,10 +11,10 @@ class CoinObserver
     /**
      * Handle the Coin "created" event.
      *
-     * @param  \App\Models\Coin  $coin
+     * @param \App\Models\Coin $coin
      * @return void
      */
-    public function created(Coin $coin)
+    public function created(Coin $coin): void
     {
         $currencies = Currency::select('symbol')->pluck('symbol')->toArray();
 
