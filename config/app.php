@@ -231,6 +231,13 @@ return [
 
     ],
 
+    'enabled_coins' => [
+        'algorand',
+        'bitcoin',
+        'ethereum',
+        'dogecoin',
+    ],
+
     'scheduled_jobs' => [
         'enabled' => (bool) env('SCHEDULED_JOBS_ENABLED', true),
     ],
