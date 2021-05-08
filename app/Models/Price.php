@@ -36,7 +36,7 @@ class Price extends Model
 
     // ACCESSORS
 
-    public function getValueAttribute(int $value): float
+    public function getValueAttribute(float $value): float
     {
         return $value / 100_000_000;
     }
