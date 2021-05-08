@@ -4,17 +4,11 @@ namespace App\Jobs;
 
 use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
 use App\Models\Coin;
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
 
-class FetchAllCoinsJob implements ShouldQueue
+class FetchAllCoinsJob extends ScheduledJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     private Client $coin_gecko_client;
 
     public function __construct()
@@ -29,10 +23,11 @@ class FetchAllCoinsJob implements ShouldQueue
         foreach ($coins as $coin_data) {
             $this->updateOrCreate($coin_data);
         }
+    }
 
-        if (config('app.scheduled_jobs.enabled')) {
-            FetchAllCoinsJob::dispatch()->delay(now()->addDay());
-        }
+    protected function nextExecutesAt(): Carbon
+    {
+        return now()->addDay();
     }
 
     private function updateOrCreate(array $coin): Coin
