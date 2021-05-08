@@ -26,6 +26,11 @@ final class Coin extends Model
 
     // SCOPES
 
+    public function scopeEnabled(Builder $query): Builder
+    {
+        return $query->whereIn('external_id', config('app.enabled_coins', []));
+    }
+
     public function scopeWithLastPriceId(Builder $query): Builder
     {
         return $query->addSelect([
