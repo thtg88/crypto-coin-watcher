@@ -15,8 +15,10 @@ class ScheduleNext
      */
     public function handle(ScheduledJob $job, $next)
     {
+        $response = $next($job);
+
         $job->scheduleNext();
 
-        return $next($job);
+        return $response;
     }
 }
