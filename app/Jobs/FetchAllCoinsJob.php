@@ -22,11 +22,6 @@ class FetchAllCoinsJob implements ShouldQueue
         $this->coin_gecko_client = Client::make();
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle(): void
     {
         $coins = $this->coin_gecko_client->listCoins();
