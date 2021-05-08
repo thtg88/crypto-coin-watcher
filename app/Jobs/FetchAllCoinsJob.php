@@ -27,7 +27,13 @@ class FetchAllCoinsJob extends ScheduledJob
     {
         $coins = $this->coin_gecko_client->listCoins();
 
+        $enabled_coin_ids = config('app.enabled_coins');
+
         foreach ($coins as $coin_data) {
+            if (!in_array($this->getExternalId($coin_data), $enabled_coin_ids)) {
+                continue;
+            }
+
             $this->updateOrCreate($coin_data);
         }
     }
