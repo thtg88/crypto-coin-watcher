@@ -57,7 +57,9 @@ class FetchCoinPriceJob implements ShouldQueue
 
     public function redispatchAt(Carbon $date): void
     {
-        self::dispatchAt($this->coin_external_id, $this->currencies, $date);
+        if (config('app.scheduled_jobs.enabled')) {
+            self::dispatchAt($this->coin_external_id, $this->currencies, $date);
+        }
     }
 
     public static function dispatchAt(

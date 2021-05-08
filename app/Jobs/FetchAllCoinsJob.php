@@ -35,7 +35,9 @@ class FetchAllCoinsJob implements ShouldQueue
             $this->updateOrCreate($coin_data);
         }
 
-        FetchAllCoinsJob::dispatch()->delay(now()->addDay());
+        if (config('app.scheduled_jobs.enabled')) {
+            FetchAllCoinsJob::dispatch()->delay(now()->addDay());
+        }
     }
 
     private function updateOrCreate(array $coin): Coin
