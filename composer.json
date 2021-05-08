@@ -11,7 +11,9 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
+        "laravel/horizon": "^5.7",
+        "laravel/tinker": "^2.5",
+        "vinkla/shield": "^7.1"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
@@ -51,9 +53,13 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "post-update-cmd": [
+            "@php artisan horizon:publish --ansi"
+        ],
         "optimize-laravel-cmd": [
             "@php artisan event:cache",
             "@php artisan config:cache",
+            "@php artisan view:cache",
             "@php artisan route:cache"
         ],
         "ci": [

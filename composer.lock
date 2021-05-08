@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e5d2d928f5b46e323261dc7a6c2e4e9",
+    "content-hash": "96dc1b78248ce63a96b95b3fb73a537c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1023,6 +1023,83 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2021-04-28T14:38:56+00:00"
+        },
+        {
+            "name": "laravel/horizon",
+            "version": "v5.7.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/horizon.git",
+                "reference": "24ffd819df749ef11a4eb20e14150b671d4f5717"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/24ffd819df749ef11a4eb20e14150b671d4f5717",
+                "reference": "24ffd819df749ef11a4eb20e14150b671d4f5717",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-pcntl": "*",
+                "ext-posix": "*",
+                "illuminate/contracts": "^8.17",
+                "illuminate/queue": "^8.17",
+                "illuminate/support": "^8.17",
+                "nesbot/carbon": "^2.17",
+                "php": "^7.3|^8.0",
+                "ramsey/uuid": "^4.0",
+                "symfony/error-handler": "^5.0",
+                "symfony/process": "^5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0",
+                "predis/predis": "^1.1"
+            },
+            "suggest": {
+                "ext-redis": "Required to use the Redis PHP driver.",
+                "predis/predis": "Required when not using the Redis PHP driver (^1.1)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Horizon\\HorizonServiceProvider"
+                    ],
+                    "aliases": {
+                        "Horizon": "Laravel\\Horizon\\Horizon"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Horizon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Dashboard and code-driven configuration for Laravel queues.",
+            "keywords": [
+                "laravel",
+                "queue"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/horizon/issues",
+                "source": "https://github.com/laravel/horizon/tree/v5.7.6"
+            },
+            "time": "2021-04-27T18:00:46+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -4612,6 +4689,72 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "vinkla/shield",
+            "version": "7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinkla/laravel-shield.git",
+                "reference": "df29c374b5d0dda4124523e0ad6b6ec01634a0cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinkla/laravel-shield/zipball/df29c374b5d0dda4124523e0ad6b6ec01634a0cd",
+                "reference": "df29c374b5d0dda4124523e0ad6b6ec01634a0cd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0",
+                "php": "^7.4 || ^8.0",
+                "symfony/http-kernel": "^5.1"
+            },
+            "require-dev": {
+                "graham-campbell/analyzer": "^3.0",
+                "graham-campbell/testbench": "^5.4",
+                "phpunit/phpunit": "^9.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.1-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Vinkla\\Shield\\ShieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vinkla\\Shield\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@doubledip.se"
+                }
+            ],
+            "description": "A HTTP basic auth middleware for Laravel",
+            "keywords": [
+                "auth",
+                "basic",
+                "http",
+                "laravel",
+                "middleware",
+                "shield"
+            ],
+            "support": {
+                "issues": "https://github.com/vinkla/laravel-shield/issues",
+                "source": "https://github.com/vinkla/laravel-shield/tree/7.1.0"
+            },
+            "time": "2020-11-26T19:35:33+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
