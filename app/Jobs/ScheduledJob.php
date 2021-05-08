@@ -22,7 +22,7 @@ abstract class ScheduledJob implements ShouldQueue
 
         $next_executes_at ??= $this->nextExecutesAt();
 
-        static::dispatch(...$this->getArgs())->delay($next_executes_at);
+        static::dispatch(...$this->getNextArgs())->delay($next_executes_at);
     }
 
     public function middleware(): array
@@ -30,7 +30,7 @@ abstract class ScheduledJob implements ShouldQueue
         return [new ScheduleNext];
     }
 
-    protected function getArgs(): array
+    protected function getNextArgs(): array
     {
         return [];
     }
