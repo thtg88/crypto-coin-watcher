@@ -30,7 +30,8 @@ class FetchNewCoinsPricesCommand extends Command
      */
     public function handle(): int
     {
-        $coin_without_prices = Coin::doesntHave('prices')->enabled()->pluck('external_id');
+        $coin_without_prices = Coin::doesntHave('prices')->enabled()
+            ->pluck('external_id');
         if ($coin_without_prices->isEmpty()) {
             $this->warn('No new coin prices to fetch.');
 
@@ -39,12 +40,12 @@ class FetchNewCoinsPricesCommand extends Command
 
         $this->info("Fetching {$coin_without_prices->count()} new coin prices!");
 
-        $currencies = Currency::select('symbol')->pluck('symbol')->toArray();
+        $currencies = Currency::pluck('symbol')->toArray();
 
         foreach ($coin_without_prices as $coin) {
-            $this->info("Fetching {$coin->external_id} price...");
+            $this->info("Fetching {$coin} price...");
 
-            dispatch(new FetchCoinPriceJob($coin->external_id, $currencies));
+            dispatch(new FetchCoinPriceJob($coin, $currencies));
         }
 
         return 0;
