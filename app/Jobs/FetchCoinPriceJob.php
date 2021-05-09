@@ -9,6 +9,7 @@ use App\Models\Price;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 final class FetchCoinPriceJob extends Job
 {
@@ -22,17 +23,24 @@ final class FetchCoinPriceJob extends Job
     {
         // If coin has been deleted, early return
         $coin = $this->coin();
+        $external_id = $this->coin_external_id;
         if ($coin === null) {
+            Log::warning("Coin {$external_id} not found!");
+
             return;
         }
 
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
 
-        $external_id = $this->coin_external_id;
         $coin_price_data = $coin_prices_data->$external_id;
 
         if ($coin->getLastPriceUpdatedAtTimestamp() === $coin_price_data->last_updated_at) {
+            Log::info(
+                "No new prices for {$external_id}. ".
+                "Last updated {$this->parseTimestamp($coin_price_data->last_updated_at)}"
+            );
+
             return;
         }
 
