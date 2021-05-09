@@ -31,8 +31,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             'period' => $this->getFullPeriod(),
             'from' => $this->from(),
             'to' => $this->to(),
-            'value' => $this->average(),
-        ]);
+        ], ['value' => $this->average()]);
     }
 
     private function average(): float
