@@ -24,6 +24,10 @@ class FetchCoinPriceJob extends ScheduledJob
     public function handle(): void
     {
         $coin = $this->coin();
+        // If coin has been deleted, early return
+        if ($coin === null) {
+            return;
+        }
 
         try {
             $coin_prices_data = $this->coinPrices($coin);
@@ -59,7 +63,7 @@ class FetchCoinPriceJob extends ScheduledJob
         return [$this->coin_external_id, $this->currencies];
     }
 
-    private function coin(): Coin
+    private function coin(): ?Coin
     {
         return Coin::withLastPriceId()->with('lastPrice')
             ->firstWhere('external_id', $this->coin_external_id);
