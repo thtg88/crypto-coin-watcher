@@ -29,11 +29,8 @@ class FetchCoinPriceJob extends ScheduledJob
             return;
         }
 
-        try {
-            $coin_prices_data = $this->coinPrices($coin);
-        } catch (Exception) {
-            return;
-        }
+        // If fetching price fail, the queue will deal with it
+        $coin_prices_data = $this->coinPrices($coin);
 
         $external_id = $this->coin_external_id;
         $coin_price_data = $coin_prices_data->$external_id;
