@@ -46,6 +46,8 @@ final class FetchCoinPriceJob extends Job
 
         foreach ($this->getAllCurrencies() as $currency) {
             $this->createPrice($coin, $currency, $coin_price_data);
+
+            $this->calculateCoinAverages();
         }
     }
 
@@ -89,5 +91,15 @@ final class FetchCoinPriceJob extends Job
     private function parseTimestamp(int $timestamp): Carbon
     {
         return Carbon::parse($timestamp);
+    }
+
+    private function calculateCoinAverages(): void
+    {
+        $job = new CalculateCoinAveragesJob(
+            $this->coin_external_id,
+            $this->currencies,
+        );
+
+        dispatch($job);
     }
 }
