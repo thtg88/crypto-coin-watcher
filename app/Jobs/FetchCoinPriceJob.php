@@ -33,6 +33,8 @@ final class FetchCoinPriceJob extends Job
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
 
+        Log::info(json_encode($coin_prices_data));
+
         $coin_price_data = $coin_prices_data->$external_id;
 
         if ($coin->getLastPriceUpdatedAtTimestamp() === $coin_price_data->last_updated_at) {
