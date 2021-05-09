@@ -240,12 +240,4 @@ return [
         'stellar',
         'yearn-finance',
     ],
-
-    'scheduled_jobs' => [
-        'enabled' => (bool) env('SCHEDULED_JOBS_ENABLED', true),
-        'fetch_coin_price_frequency' => (int) env(
-            'SCHEDULED_JOBS_FETCH_COIN_PRICE_FREQUENCY',
-            300
-        ),
-    ],
 ];
