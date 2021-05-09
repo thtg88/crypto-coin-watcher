@@ -17,6 +17,7 @@ class CreateAveragesTable extends Migration
             $table->id();
             $table->foreignId('coin_id')->index()->constrained();
             $table->foreignId('currency_id')->index()->constrained();
+            $table->string('period')->index();
             $table->unsignedBigInteger('value');
             $table->datetime('from');
             $table->datetime('to');

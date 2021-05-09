@@ -18,6 +18,7 @@ class Average extends Model
         'coin_id',
         'currency_id',
         'from',
+        'period',
         'to',
         'value',
     ];
