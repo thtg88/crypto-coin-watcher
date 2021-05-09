@@ -7,6 +7,8 @@ use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 final class CalculatePeriodCoinPriceCurrencyAverageAction
 {
