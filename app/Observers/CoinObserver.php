@@ -23,7 +23,7 @@ class CoinObserver
 
         Log::info("Fetching {$coin->external_id} price...");
 
-        $currencies = Currency::select('symbol')->pluck('symbol')->toArray();
+        $currencies = Currency::pluck('symbol')->toArray();
 
         dispatch(new FetchCoinPriceJob($coin->external_id, $currencies));
     }
