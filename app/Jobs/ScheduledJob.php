@@ -21,6 +21,10 @@ abstract class ScheduledJob implements ShouldQueue
         }
 
         $next_executes_at ??= $this->nextExecutesAt();
+        // Do not reschedule if no timestamp
+        if ($next_executes_at === null) {
+            return;
+        }
 
         static::dispatch(...$this->getNextArgs())->delay($next_executes_at);
     }
@@ -35,5 +39,5 @@ abstract class ScheduledJob implements ShouldQueue
         return [];
     }
 
-    abstract protected function nextExecutesAt(): Carbon;
+    abstract protected function nextExecutesAt(): ?Carbon;
 }
