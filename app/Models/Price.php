@@ -7,6 +7,9 @@ use Illuminate\Support\Carbon;
 
 class Price extends Model
 {
+    use Concerns\WithValueAccessor;
+    use Concerns\WithValueMutator;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,20 +35,6 @@ class Price extends Model
     public function getValueLastUpdatedAtTimestamp(): int
     {
         return $this->value_last_updated_at->getTimestamp();
-    }
-
-    // ACCESSORS
-
-    public function getValueAttribute(float $value): float
-    {
-        return $value / 100_000_000;
-    }
-
-    // MUTATORS
-
-    public function setValueAttribute(float $value): void
-    {
-        $this->attributes['value'] = $value * 100_000_000;
     }
 
     // RELATIONSHIPS
