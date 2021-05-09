@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new FetchAllCoinsJob())->daily();
         $schedule->job(new FetchEnabledCoinsPricesJob())->everyMinute();
+
+        $schedule->command('enabled-coins:fetch-prices')->daily();
         $schedule->command('horizon:snapshot')->everyMinute();
         $schedule->command('telescope:prune --hours=24')->everyMinute();
     }
