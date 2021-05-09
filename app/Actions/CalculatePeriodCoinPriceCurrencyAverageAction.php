@@ -93,6 +93,6 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
 
     private function getFullPeriod(): string
     {
-        return ((string) $this->value).$this->period;
+        return implode(' ', [(string) $this->value, $this->period]);
     }
 }
