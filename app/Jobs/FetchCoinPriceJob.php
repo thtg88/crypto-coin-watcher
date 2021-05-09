@@ -38,7 +38,7 @@ final class FetchCoinPriceJob extends Job
         if ($coin->getLastPriceUpdatedAtTimestamp() === $coin_price_data->last_updated_at) {
             Log::info(
                 "No new prices for {$external_id}. ".
-                "Last updated {$this->parseTimestamp($coin_price_data->last_updated_at)}"
+                "Last updated {$this->formatTimestamp($coin_price_data->last_updated_at)}"
             );
 
             return;
@@ -91,6 +91,11 @@ final class FetchCoinPriceJob extends Job
     private function parseTimestamp(int $timestamp): Carbon
     {
         return Carbon::parse($timestamp);
+    }
+
+    private function formatTimestamp(int $timestamp): string
+    {
+        return $this->parseTimestamp($timestamp)->toDateTimeString();
     }
 
     private function calculateCoinAverages(): void
