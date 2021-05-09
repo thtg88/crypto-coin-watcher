@@ -27,7 +27,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
     public function __invoke(): void
     {
         if (!$this->shouldCalculate()) {
-            Log::info(
+            Log::debug(
                 "Not enough data to calculate averages ".
                 "from {$this->from()->toDateTimeString()} ".
                 "to {$this->to()->toDateTimeString()}"
@@ -53,7 +53,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             $this->from()->toDateTimeString()
         )->exists();
 
-        Log::info('Should calculate average? '.json_encode($exists));
+        Log::debug('Should calculate average? '.json_encode($exists));
 
         return $exists;
     }

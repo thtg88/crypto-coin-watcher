@@ -21,7 +21,7 @@ class CoinObserver
             return;
         }
 
-        Log::info("Fetching {$coin->external_id} price...");
+        Log::debug("Fetching {$coin->external_id} price...");
 
         $currencies = Currency::pluck('symbol')->toArray();
 
