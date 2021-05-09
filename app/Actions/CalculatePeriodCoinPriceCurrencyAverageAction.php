@@ -39,7 +39,10 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         return (float) Price::query()
             ->where('currency_id', $this->currency->id)
             ->where('coin_id', $this->coin->id)
-            ->between('value_last_updated_at', [$this->from(), ])
+            ->whereBetween('value_last_updated_at', [
+                $this->from(),
+                $this->to(),
+            ])
             ->average('value');
     }
 
