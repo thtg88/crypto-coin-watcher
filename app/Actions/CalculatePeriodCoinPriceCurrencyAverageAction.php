@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\Price;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 final class CalculatePeriodCoinPriceCurrencyAverageAction
@@ -25,6 +26,16 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
 
     public function __invoke(): void
     {
+        if (!$this->shouldCalculate()) {
+            Log::info(
+                "Not enough data to calculate averages ".
+                "from {$this->from()->toDateTimeString()} ".
+                "to {$this->to()->toDateTimeString()}"
+            );
+
+            return;
+        }
+
         Average::firstOrCreate([
             'coin_id' => $this->coin->id,
             'currency_id' => $this->currency->id,
@@ -32,6 +43,19 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             'from' => $this->from(),
             'to' => $this->to(),
         ], ['value' => $this->average()]);
+    }
+
+    private function shouldCalculate(): bool
+    {
+        $exists = Price::query()->where(
+            'value_last_updated_at',
+            '<',
+            $this->from()->toDateTimeString()
+        )->exists();
+
+        Log::info('Should calculate average? '.json_encode($exists));
+
+        return $exists;
     }
 
     private function average(): float
