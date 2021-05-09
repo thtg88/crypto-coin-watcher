@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Jobs\FetchAllCoinsJob;
 use App\Jobs\FetchCoinPriceJob;
+use App\Jobs\FetchEnabledCoinsPricesJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
