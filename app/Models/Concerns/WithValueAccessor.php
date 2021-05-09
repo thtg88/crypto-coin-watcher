@@ -6,6 +6,6 @@ trait WithValueAccessor
 {
     public function getValueAttribute(float $value): float
     {
-        return $value / 100_000_000;
+        return $value / 1_000_000;
     }
 }
