@@ -49,13 +49,16 @@ class FetchCoinPriceJob extends ScheduledJob
         $this->succeeded = true;
     }
 
-    protected function nextExecutesAt(): Carbon
+    protected function nextExecutesAt(): ?Carbon
     {
-        return $this->succeeded === false ?
-            now()->addDay() :
-            now()->addSeconds(
-                config('app.scheduled_jobs.fetch_coin_price_frequency')
-            );
+        // If job failed, don't reschedule, let the queue handle it
+        if ($this->succeeded === false) {
+            return null;
+        }
+
+        return now()->addSeconds(
+            config('app.scheduled_jobs.fetch_coin_price_frequency')
+        );
     }
 
     protected function getNextArgs(): array
