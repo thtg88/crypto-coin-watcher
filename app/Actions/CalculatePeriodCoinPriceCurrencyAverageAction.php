@@ -34,13 +34,13 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         ]);
     }
 
-    private function average(): Collection
+    private function average(): float
     {
-        return Price::average('value')
+        return (float) Price::query()
             ->where('currency_id', $this->currency->id)
             ->where('coin_id', $this->coin->id)
             ->between('value_last_updated_at', [$this->from(), ])
-            ->get();
+            ->average('value');
     }
 
     private function getCarbonMethod(): string
