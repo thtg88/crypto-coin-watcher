@@ -31,7 +31,7 @@ class FetchAllCoinsJob extends ScheduledJob
         }
     }
 
-    protected function nextExecutesAt(): Carbon
+    protected function nextExecutesAt(): ?Carbon
     {
         return now()->addDay();
     }
