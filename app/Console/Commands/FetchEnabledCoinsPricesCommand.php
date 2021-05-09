@@ -37,9 +37,9 @@ class FetchEnabledCoinsPricesCommand extends Command
         $currencies = Currency::pluck('symbol')->toArray();
 
         foreach ($coins as $coin) {
-            $this->info("Fetching {$coin->external_id} price...");
+            $this->info("Fetching {$coin} price...");
 
-            dispatch(new FetchCoinPriceJob($coin->external_id, $currencies));
+            dispatch(new FetchCoinPriceJob($coin, $currencies));
         }
 
         return 0;
