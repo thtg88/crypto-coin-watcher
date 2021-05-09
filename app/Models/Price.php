@@ -28,6 +28,8 @@ class Price extends Model
      * @var array
      */
     protected $casts = [
+        'coin_id' => 'integer',
+        'currency_id' => 'integer',
         'value' => 'float',
         'value_last_updated_at' => 'datetime',
     ];
