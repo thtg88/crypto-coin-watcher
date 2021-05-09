@@ -72,9 +72,14 @@ final class FetchCoinPriceJob extends Job
         return $coin->prices()->create([
             'currency_id' => $currency->id,
             'value' => $price_data->$symbol,
-            'value_last_updated_at' => Carbon::parse(
+            'value_last_updated_at' => $this->parseTimestamp(
                 $price_data->last_updated_at
             ),
         ]);
+    }
+
+    private function parseTimestamp(int $timestamp): Carbon
+    {
+        return Carbon::parse($timestamp);
     }
 }
