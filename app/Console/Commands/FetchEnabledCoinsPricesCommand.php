@@ -7,7 +7,7 @@ use App\Models\Coin;
 use App\Models\Currency;
 use Illuminate\Console\Command;
 
-class FetchAllEnabledCoinsPricesCommand extends Command
+class FetchEnabledCoinsPricesCommand extends Command
 {
     /**
      * The name and signature of the console command.
