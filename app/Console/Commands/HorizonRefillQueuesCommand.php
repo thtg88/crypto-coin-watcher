@@ -28,7 +28,7 @@ class HorizonRefillQueuesCommand extends Command
     public function handle(): int
     {
         $delayed_jobs = Redis::zrange('queues:default:delayed', 0, -1);
-        dd($delayed_jobs);
+        dump($delayed_jobs);
         if (!empty($delayed_jobs)) {
             $this->warn("Default delayed queue is not empty, skipping.");
 
