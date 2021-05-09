@@ -7,7 +7,7 @@ use App\Models\Coin;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Carbon;
 
-class FetchAllCoinsJob extends ScheduledJob
+final class FetchAllCoinsJob extends Job
 {
     /**
      * The number of seconds the job can run before timing out.
@@ -31,9 +31,7 @@ class FetchAllCoinsJob extends ScheduledJob
         }
     }
 
-    protected function nextExecutesAt(): ?Carbon
     {
-        return now()->addDay();
     }
 
     private function updateOrCreate(array $coin): Coin
