@@ -64,8 +64,8 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             ->where('currency_id', $this->currency->id)
             ->where('coin_id', $this->coin->id)
             ->whereBetween('value_last_updated_at', [
-                $this->from(),
-                $this->to(),
+                $this->from()->toDateTimeString(),
+                $this->to()->toDateTimeString(),
             ])
             ->average('value');
 
