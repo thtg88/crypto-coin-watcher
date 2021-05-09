@@ -16,16 +16,9 @@ class FetchAllCoinsJob extends ScheduledJob
      */
     public $timeout = 120;
 
-    private Client $coin_gecko_client;
-
-    public function __construct()
-    {
-        $this->coin_gecko_client = Client::make();
-    }
-
     public function handle(): void
     {
-        $coins = $this->coin_gecko_client->listCoins();
+        $coins = Client::make()->listCoins();
 
         $enabled_coin_ids = config('app.enabled_coins');
 
