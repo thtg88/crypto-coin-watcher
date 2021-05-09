@@ -240,4 +240,13 @@ return [
         'stellar',
         'yearn-finance',
     ],
+
+    'average_coin_prices' => [
+        'time_periods' => [
+            '1 hours',
+            '1 days',
+            '1 weeks',
+            '1 months',
+        ],
+    ],
 ];
