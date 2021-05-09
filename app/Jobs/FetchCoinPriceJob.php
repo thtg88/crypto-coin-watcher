@@ -13,15 +13,12 @@ use Illuminate\Support\Carbon;
 
 class FetchCoinPriceJob extends ScheduledJob
 {
-    private Client $coin_gecko_client;
-
     private bool $succeeded = false;
 
     public function __construct(
         private string $coin_external_id,
         private array $currencies,
     ) {
-        $this->coin_gecko_client = Client::make();
     }
 
     public function handle(): void
@@ -70,8 +67,10 @@ class FetchCoinPriceJob extends ScheduledJob
 
     private function coinPrices($coin): object
     {
-        return $this->coin_gecko_client
-            ->coinPrices($coin->external_id, $this->currencies);
+        return Client::make()->coinPrices(
+            $coin->external_id,
+            $this->currencies
+        );
     }
 
     private function getAllCurrencies(): Collection
