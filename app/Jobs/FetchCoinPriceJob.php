@@ -63,8 +63,10 @@ class FetchCoinPriceJob extends ScheduledJob
         return [$this->coin_external_id, $this->currencies];
     }
 
+    /** @psalm-suppress InvalidReturnType */
     private function coin(): ?Coin
     {
+        /** @psalm-suppress InvalidReturnStatement */
         return Coin::withLastPriceId()->with('lastPrice')
             ->firstWhere('external_id', $this->coin_external_id);
     }
