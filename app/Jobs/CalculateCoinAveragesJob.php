@@ -21,6 +21,7 @@ final class CalculateCoinAveragesJob extends Job
         foreach ($this->getPeriodsMap() as $period => $quantity) {
             $action = new CalculatePeriodCoinPriceAveragesAction(
                 $coin,
+                $this->currencies,
                 $quantity,
                 $period,
             );

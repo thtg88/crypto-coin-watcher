@@ -10,6 +10,7 @@ final class CalculatePeriodCoinPriceAveragesAction
 {
     public function __construct(
         private Coin $coin,
+        private array $currencies,
         private int $value,
         private string $period,
     ) {
