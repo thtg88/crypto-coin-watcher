@@ -20,8 +20,8 @@ final class FetchCoinPriceJob extends Job
 
     public function handle(): void
     {
-        $coin = $this->coin();
         // If coin has been deleted, early return
+        $coin = $this->coin();
         if ($coin === null) {
             return;
         }
