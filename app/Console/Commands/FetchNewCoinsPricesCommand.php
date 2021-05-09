@@ -23,11 +23,6 @@ class FetchNewCoinsPricesCommand extends Command
      */
     protected $description = 'Fetch the prices of coin that have never been fetched';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $coin_without_prices = Coin::doesntHave('prices')->enabled()
