@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
-class FetchCoinPriceJob extends ScheduledJob
+final class FetchCoinPriceJob extends Job
 {
     private bool $succeeded = false;
 
@@ -44,23 +44,6 @@ class FetchCoinPriceJob extends ScheduledJob
         }
 
         $this->succeeded = true;
-    }
-
-    protected function nextExecutesAt(): ?Carbon
-    {
-        // If job failed, don't reschedule, let the queue handle it
-        if ($this->succeeded === false) {
-            return null;
-        }
-
-        return now()->addSeconds(
-            config('app.scheduled_jobs.fetch_coin_price_frequency')
-        );
-    }
-
-    protected function getNextArgs(): array
-    {
-        return [$this->coin_external_id, $this->currencies];
     }
 
     /** @psalm-suppress InvalidReturnType */
