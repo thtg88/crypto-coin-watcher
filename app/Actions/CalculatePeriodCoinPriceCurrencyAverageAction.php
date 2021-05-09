@@ -28,6 +28,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         Average::firstOrCreate([
             'coin_id' => $this->coin->id,
             'currency_id' => $this->currency->id,
+            'period' => $this->getFullPeriod(),
             'from' => $this->from(),
             'to' => $this->to(),
             'value' => $this->average(),
@@ -65,5 +66,10 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         $this->to ??= now();
 
         return $this->to;
+    }
+
+    private function getFullPeriod(): string
+    {
+        return ((string) $this->value).$this->period;
     }
 }
