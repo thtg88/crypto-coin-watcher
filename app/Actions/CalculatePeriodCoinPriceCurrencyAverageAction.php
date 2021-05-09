@@ -60,7 +60,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
 
     private function average(): float
     {
-        return (float) Price::query()
+        $average = (float) Price::query()
             ->where('currency_id', $this->currency->id)
             ->where('coin_id', $this->coin->id)
             ->whereBetween('value_last_updated_at', [
@@ -68,6 +68,13 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
                 $this->to(),
             ])
             ->average('value');
+
+        Log::debug(
+            "Average for {$this->getFullPeriod()} {$this->coin->external_id}: ".
+            json_encode($average)
+        );
+
+        return $average;
     }
 
     private function getCarbonMethod(): string
