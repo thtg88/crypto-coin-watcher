@@ -6,15 +6,12 @@ use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
-use Exception;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 final class FetchCoinPriceJob extends Job
 {
-    private bool $succeeded = false;
-
     public function __construct(
         private string $coin_external_id,
         private array $currencies,
@@ -42,8 +39,6 @@ final class FetchCoinPriceJob extends Job
         foreach ($this->getAllCurrencies() as $currency) {
             $this->createPrice($coin, $currency, $coin_price_data);
         }
-
-        $this->succeeded = true;
     }
 
     /** @psalm-suppress InvalidReturnType */
