@@ -6,6 +6,7 @@ use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
 use App\Models\Coin;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 final class FetchAllCoinsJob extends Job
 {
@@ -18,20 +19,20 @@ final class FetchAllCoinsJob extends Job
 
     public function handle(): void
     {
-        $coins = Client::make()->listCoins();
-
         $enabled_coin_ids = config('app.enabled_coins');
 
-        foreach ($coins as $coin_data) {
-            if (!in_array($this->getExternalId($coin_data), $enabled_coin_ids)) {
+        foreach ($this->fetchCoins() as $coin) {
+            if (!in_array($this->getExternalId($coin), $enabled_coin_ids)) {
                 continue;
             }
 
-            $this->updateOrCreate($coin_data);
+            $this->updateOrCreate($coin);
         }
     }
 
+    private function fetchCoins(): Collection
     {
+        return Client::make()->listCoins();
     }
 
     private function updateOrCreate(array $coin): Coin
