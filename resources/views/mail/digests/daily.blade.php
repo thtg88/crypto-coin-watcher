@@ -6,7 +6,7 @@ from {{ $start->toDateTimeString() }} to {{ $end->toDateTimeString() }}.
 
 @component('mail::table')
 | Coin (Currency) | Min | Max | Start | End |
-|-----------------|-----|-----|-------|-----|
+|-----------------|----:|----:|------:|----:|
 @foreach ($data as $row)
 | {{ $row['coin'] }} ({{ $row['currency'] }}) | {{ $row['min'] }} | {{ $row['max']}} | {{ $row['first'] }} | {{ $row['last'] }} |
 @endforeach
