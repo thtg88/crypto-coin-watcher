@@ -28,8 +28,6 @@ class SendDailyDigestsJob extends Job
 
     private function shouldntSend(): bool
     {
-        return false;
-
         // If there are existing alerts sent today
         return Alert::where('type', 'daily-digest')
             ->whereDate('last_sent_at', now()->toDateString())
