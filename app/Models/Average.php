@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Average extends Model
 {
+    use Concerns\WithValueAccessor;
+
     /**
      * The attributes that are mass assignable.
      *
