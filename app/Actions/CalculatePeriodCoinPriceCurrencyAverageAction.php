@@ -6,6 +6,7 @@ use App\Models\Average;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -13,8 +14,8 @@ use Illuminate\Support\Str;
 
 final class CalculatePeriodCoinPriceCurrencyAverageAction
 {
-    private Carbon $from;
-    private Carbon $to;
+    private Carbon $pricesFrom;
+    private Carbon $pricesTo;
 
     public function __construct(
         private Coin $coin,
@@ -29,8 +30,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         if (!$this->shouldCalculate()) {
             Log::debug(
                 "Not enough data to calculate averages ".
-                "from {$this->from()->toDateTimeString()} ".
-                "to {$this->to()->toDateTimeString()}"
+                "from {$this->pricesFrom()} to {$this->pricesTo()}"
             );
 
             return;
@@ -47,34 +47,34 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
 
     private function shouldCalculate(): bool
     {
-        $exists = Price::query()->where(
+        return Price::query()->where(
             'value_last_updated_at',
             '<',
-            $this->from()->toDateTimeString()
+            $this->pricesFrom()
         )->exists();
-
-        Log::debug('Should calculate average? '.json_encode($exists));
-
-        return $exists;
     }
 
     private function average(): float
     {
-        $average = (float) Price::query()
-            ->where('currency_id', $this->currency->id)
-            ->where('coin_id', $this->coin->id)
-            ->whereBetween('value_last_updated_at', [
-                $this->from()->toDateTimeString(),
-                $this->to()->toDateTimeString(),
-            ])
-            ->average('value');
+        $average = (float) $this->baseQuery()->average('value');
 
         Log::debug(
-            "Average for {$this->getFullPeriod()} {$this->coin->external_id}: ".
-            json_encode($average)
+            "Average for {$this->getFullPeriod()} ".
+            "{$this->coin->external_id}: ".json_encode($average)
         );
 
         return $average;
+    }
+
+    private function baseQuery(): Builder
+    {
+        return Price::query()
+            ->where('currency_id', $this->currency->id)
+            ->where('coin_id', $this->coin->id)
+            ->whereBetween('value_last_updated_at', [
+                $this->pricesFrom(),
+                $this->pricesTo(),
+            ]);
     }
 
     private function getCarbonMethod(): string
@@ -82,20 +82,20 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
         return 'sub'.Str::title($this->period);
     }
 
-    private function from(): Carbon
+    private function pricesFrom(): string
     {
         $method = $this->getCarbonMethod();
 
-        $this->from ??= now()->$method($this->value);
+        $this->pricesFrom ??= now()->$method($this->value);
 
-        return $this->from;
+        return $this->pricesFrom->toDateTimeString();
     }
 
-    private function to(): Carbon
+    private function pricesTo(): string
     {
-        $this->to ??= now();
+        $this->pricesTo ??= now();
 
-        return $this->to;
+        return $this->pricesTo->toDateTimeString();
     }
 
     private function getFullPeriod(): string
