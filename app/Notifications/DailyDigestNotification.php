@@ -39,6 +39,8 @@ class DailyDigestNotification extends Notification implements ShouldQueue
         return (new MailMessage)->markdown('mail.digests.daily', [
             'data' => $data,
             'notifiable' => $notifiable,
+            'start' => $this->start,
+            'end' => $this->end,
         ]);
     }
 
