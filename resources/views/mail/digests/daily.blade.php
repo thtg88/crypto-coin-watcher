@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hi {{ $notifiable->name }}
 
-Here's your daily update {{ config('app.name') }},
+Here's your daily {{ config('app.name') }} update,
 from {{ $start->toDateTimeString() }} to {{ $end->toDateTimeString() }}.
 
 @component('mail::table')
