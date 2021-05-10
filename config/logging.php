@@ -39,7 +39,7 @@ return [
             'driver' => 'stack',
             'channels' => in_array(env('APP_ENV'), ['local', 'testing']) ?
                     ['daily'] :
-                    ['daily', 'sentry', 'stderr'],
+                    ['daily', 'stderr'],
             'ignore_exceptions' => false,
         ],
 
