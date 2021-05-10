@@ -40,8 +40,8 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             'coin_id' => $this->coin->id,
             'currency_id' => $this->currency->id,
             'period' => $this->getFullPeriod(),
-            'from' => $this->from(),
-            'to' => $this->to(),
+            'from' => $this->newAverageFrom(),
+            'to' => $this->newAverageTo(),
         ], ['value' => $this->average()]);
     }
 
@@ -52,6 +52,16 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
             '<',
             $this->pricesFrom()
         )->exists();
+    }
+
+    private function newAverageFrom(): string
+    {
+        return $this->baseQuery()->min('value_last_updated_at');
+    }
+
+    private function newAverageTo(): string
+    {
+        return $this->baseQuery()->max('value_last_updated_at');
     }
 
     private function average(): float
