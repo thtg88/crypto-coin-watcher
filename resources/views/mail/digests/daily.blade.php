@@ -5,10 +5,10 @@ Here's your daily update {{ config('app.name') }},
 from {{ $start->toDateTimeString() }} to {{ $end->toDateTimeString() }}.
 
 @component('mail::table')
-| Coin (Currency) | Min | Max | Start | End |
-|-----------------|----:|----:|------:|----:|
+| Coin | Min | Max | Start | End | Trend |
+|------|----:|----:|------:|----:|:-----:|
 @foreach ($data as $row)
-| {{ $row['coin'] }} ({{ $row['currency'] }}) | {{ $row['min'] }} | {{ $row['max']}} | {{ $row['first'] }} | {{ $row['last'] }} |
+| {{ $row['coin'] }} | {{ $row['min'] }} | {{ $row['max']}} | {{ $row['first'] }} | {{ $row['last'] }} | {{ $row['trend'] }}
 @endforeach
 @endcomponent
 

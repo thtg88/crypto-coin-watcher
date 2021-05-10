@@ -46,13 +46,22 @@ class DailyDigestNotification extends Notification implements ShouldQueue
 
     private function getRow(Coin $coin, Currency $currency): array
     {
+        $first = $this->format($this->firstHourlyAverage($coin, $currency));
+        $last = $this->format($this->lastHourlyAverage($coin, $currency));
+        if ($last > $first) {
+            $trend = '✅';
+        } else {
+            $trend = '❌';
+        }
+
         return [
             'coin' => $coin->external_id,
             'currency' => $currency->symbol,
             'min' => $this->format($this->minHourlyAverage($coin, $currency)),
             'max' => $this->format($this->maxHourlyAverage($coin, $currency)),
-            'first' => $this->format($this->firstHourlyAverage($coin, $currency)),
-            'last' => $this->format($this->lastHourlyAverage($coin, $currency)),
+            'first' => $first,
+            'last' => $last,
+            'trend' => $trend,
         ];
     }
 
