@@ -48,9 +48,9 @@ final class FetchCoinPriceJob extends Job
 
         foreach ($this->getAllCurrencies() as $currency) {
             $this->createPrice($coin, $currency, $coin_price_data);
-
-            $this->calculateCoinAverages();
         }
+
+        $this->calculateCoinAverages();
     }
 
     /** @psalm-suppress InvalidReturnType */
