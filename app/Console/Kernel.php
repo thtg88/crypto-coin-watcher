@@ -23,8 +23,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Every morning at 8am
-        $schedule->job(new SendDailyDigestsJob())->dailyAt('08:00');
+        // Every morning at 8am (7am UTC)
+        $schedule->job(new SendDailyDigestsJob())->dailyAt('07:00');
         // Every Saturday at 10am
         // $schedule->job(new SendWeeklyDigestsJob())->everyMinute(); // ->weeklyOn(6, '10:00');
         $schedule->command('enabled-coins:fetch-prices')->everyTwoMinutes();
