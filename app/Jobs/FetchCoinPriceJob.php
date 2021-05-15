@@ -21,6 +21,8 @@ final class FetchCoinPriceJob extends Job
 
     public function handle(): void
     {
+        Log::debug("Fetching {$this->coin_external_id} price...");
+
         // If coin has been deleted, early return
         $coin = $this->coin();
         $external_id = $this->coin_external_id;
@@ -32,8 +34,6 @@ final class FetchCoinPriceJob extends Job
 
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
-
-        Log::debug(json_encode($coin_prices_data));
 
         $coin_price_data = $coin_prices_data->$external_id;
 

@@ -28,11 +28,6 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
     public function __invoke(): void
     {
         if (!$this->shouldCalculate()) {
-            Log::debug(
-                "Not enough data to calculate averages ".
-                "from {$this->pricesFrom()} to {$this->pricesTo()}"
-            );
-
             return;
         }
 
