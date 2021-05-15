@@ -23,7 +23,8 @@ class SendDailyDigestsJob extends Job
 
     private function alerts(): Collection
     {
-        return Alert::where('type', 'daily-digest')
+        return Alert::with('user')
+            ->where('type', 'daily-digest')
             ->whereDate('last_sent_at', '<>', now()->toDateString())
             ->get();
     }
