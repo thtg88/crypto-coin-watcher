@@ -30,7 +30,7 @@ final class FetchCoinPriceJob extends Job
             return;
         }
 
-        Log::debug("Fetching {$coin_external_id} price...");
+        Log::debug("Fetching {$external_id} price...");
 
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
