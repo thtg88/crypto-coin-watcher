@@ -7,7 +7,6 @@ use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -61,14 +60,7 @@ final class CalculatePeriodCoinPriceCurrencyAverageAction
 
     private function average(): float
     {
-        $average = (float) $this->baseQuery()->average('value');
-
-        Log::debug(
-            "Average for {$this->getFullPeriod()} ".
-            "{$this->coin->external_id}: ".json_encode($average)
-        );
-
-        return $average;
+        return (float) $this->baseQuery()->average('value');
     }
 
     private function baseQuery(): Builder
