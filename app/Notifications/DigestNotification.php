@@ -57,6 +57,10 @@ abstract class DigestNotification extends Notification implements ShouldQueue
 
     protected function getVariationPercentage(float $first_value, float $last_value): string
     {
+        if ($first_value === 0.0) {
+            return '-';
+        }
+
         $variation = $last_value - $first_value;
         $percentage = ($variation / $first_value) * 100;
 
