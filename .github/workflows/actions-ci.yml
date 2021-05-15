@@ -50,4 +50,4 @@ jobs:
     - name: Run test suite
       env:
         DB_PASSWORD: postgres
-      run: composer run-script test -- --stop-on-failure
+      run: php artisan db:create crypto_coin_watcher && composer run-script test -- --stop-on-failure
