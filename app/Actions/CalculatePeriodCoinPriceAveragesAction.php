@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Cache\CurrenciesCache;
 use App\Models\Coin;
 use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,6 +33,6 @@ final class CalculatePeriodCoinPriceAveragesAction
 
     private function currencies(): Collection
     {
-        return Currency::whereIn('symbol', $this->currencies)->get();
+        return (new CurrenciesCache($this->currencies))->get();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
+use App\Cache\CurrenciesCache;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
@@ -71,7 +72,7 @@ final class FetchCoinPriceJob extends Job
 
     private function currencies(): Collection
     {
-        return Currency::whereIn('symbol', $this->currencies)->get();
+        return (new CurrenciesCache($this->currencies))->get();
     }
 
     private function createPrice(
