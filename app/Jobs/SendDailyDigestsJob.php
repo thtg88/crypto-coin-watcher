@@ -13,8 +13,8 @@ class SendDailyDigestsJob extends Job
     {
         foreach ($this->alerts() as $alert) {
             $alert->user->notify(new DailyDigestNotification(
-                now()->copy()->setTime(8, 0)->subDays(1),
-                now()->copy()->setTime(8, 0),
+                now()->copy()->setTime(7, 0)->subDays(1),
+                now()->copy()->setTime(7, 0),
             ));
 
             $alert->update(['last_sent_at' => now()->toDateTimeString()]);
