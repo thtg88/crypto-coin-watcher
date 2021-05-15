@@ -231,7 +231,7 @@ return [
 
     ],
 
-    'coin_storage_coefficient' => 1_000_000,
+    'coin_price_storage_coefficient' => 1_000_000,
 
     'enabled_coins' => [
         'algorand',
