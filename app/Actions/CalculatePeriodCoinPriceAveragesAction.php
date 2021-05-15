@@ -18,7 +18,7 @@ final class CalculatePeriodCoinPriceAveragesAction
 
     public function __invoke(): void
     {
-        foreach ($this->getCurrencies() as $currency) {
+        foreach ($this->currencies() as $currency) {
             $action = new CalculatePeriodCoinPriceCurrencyAverageAction(
                 $this->coin,
                 $currency,
@@ -30,7 +30,7 @@ final class CalculatePeriodCoinPriceAveragesAction
         }
     }
 
-    private function getCurrencies(): Collection
+    private function currencies(): Collection
     {
         return Currency::whereIn('symbol', $this->currencies)->get();
     }
