@@ -8,9 +8,9 @@ from {{ $start->toDateTimeString() }} to {{ $end->toDateTimeString() }}.
 
 @component('mail::table')
 | Coin | Trend | Start | End |
-|------|:-----:|------:|----:|
+|------|------:|------:|----:|
 @foreach ($data as $row)
-| {{ $row['coin'] }} | {{ $row['trend'] }} | {{ $row['first'] }} | {{ $row['last'] }} |
+| {{ $row['coin'] }} | {{ $row['variation_percentage'].'% '.$row['trend'] }} | {{ $row['first'] }} | {{ $row['last'] }} |
 @endforeach
 @endcomponent
 
