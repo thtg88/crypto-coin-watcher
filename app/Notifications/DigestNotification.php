@@ -38,7 +38,9 @@ abstract class DigestNotification extends Notification implements ShouldQueue
         return $data;
     }
 
-    protected function getRow(Coin $coin, Currency $currency): array
+    abstract protected function averageQuery(Coin $coin, Currency $currency): Builder;
+
+    private function getRow(Coin $coin, Currency $currency): array
     {
         $first = $this->firstAverage($coin, $currency);
         $last = $this->lastAverage($coin, $currency);
@@ -55,7 +57,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
         ];
     }
 
-    protected function getVariationPercentage(float $first_value, float $last_value): string
+    private function getVariationPercentage(float $first_value, float $last_value): string
     {
         if ($first_value === 0.0) {
             return '-';
@@ -67,7 +69,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
         return number_format($percentage, 2);
     }
 
-    protected function getTrend(float $first_value, float $last_value): string
+    private function getTrend(float $first_value, float $last_value): string
     {
         if ($last_value > $first_value) {
             return '🟢';
@@ -76,7 +78,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
         return '🛑';
     }
 
-    protected function format(float $value): string
+    private function format(float $value): string
     {
         if ($value >= 1000) {
             return number_format($value, 2);
@@ -85,29 +87,29 @@ abstract class DigestNotification extends Notification implements ShouldQueue
         return (string) $value;
     }
 
-    protected function coins(): Collection
+    private function coins(): Collection
     {
         return Coin::enabled()->select('id', 'external_id')->get();
     }
 
-    protected function currencies(): Collection
+    private function currencies(): Collection
     {
         return Currency::select('id', 'symbol')->get();
     }
 
-    protected function maxAverage(Coin $coin, Currency $currency): float
+    private function maxAverage(Coin $coin, Currency $currency): float
     {
         return $this->averageQuery($coin, $currency)
             ->max('value') / config('app.coin_price_storage_coefficient');
     }
 
-    protected function minAverage(Coin $coin, Currency $currency): float
+    private function minAverage(Coin $coin, Currency $currency): float
     {
         return $this->averageQuery($coin, $currency)
             ->min('value') / config('app.coin_price_storage_coefficient');
     }
 
-    protected function firstAverage(Coin $coin, Currency $currency): float
+    private function firstAverage(Coin $coin, Currency $currency): float
     {
         return $this->averageQuery($coin, $currency)
             ->orderBy('from')
@@ -116,7 +118,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
             ?->value ?? 0.0;
     }
 
-    protected function lastAverage(Coin $coin, Currency $currency): float
+    private function lastAverage(Coin $coin, Currency $currency): float
     {
         return $this->averageQuery($coin, $currency)
             ->orderByDesc('to')
@@ -124,6 +126,4 @@ abstract class DigestNotification extends Notification implements ShouldQueue
             ->first()
             ?->value ?? 0.0;
     }
-
-    abstract protected function averageQuery(Coin $coin, Currency $currency): Builder;
 }
