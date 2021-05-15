@@ -21,8 +21,6 @@ final class FetchCoinPriceJob extends Job
 
     public function handle(): void
     {
-        Log::debug("Fetching {$this->coin_external_id} price...");
-
         // If coin has been deleted, early return
         $coin = $this->coin();
         $external_id = $this->coin_external_id;
@@ -31,6 +29,8 @@ final class FetchCoinPriceJob extends Job
 
             return;
         }
+
+        Log::debug("Fetching {$coin_external_id} price...");
 
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
@@ -46,7 +46,7 @@ final class FetchCoinPriceJob extends Job
             return;
         }
 
-        foreach ($this->getAllCurrencies() as $currency) {
+        foreach ($this->currencies() as $currency) {
             $this->createPrice($coin, $currency, $coin_price_data);
         }
 
@@ -69,7 +69,7 @@ final class FetchCoinPriceJob extends Job
         );
     }
 
-    private function getAllCurrencies(): Collection
+    private function currencies(): Collection
     {
         return Currency::whereIn('symbol', $this->currencies)->get();
     }
