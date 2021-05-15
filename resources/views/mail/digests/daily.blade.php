@@ -4,6 +4,8 @@
 Here's your daily {{ config('app.name') }} update,
 from {{ $start->toDateTimeString() }} to {{ $end->toDateTimeString() }}.
 
+All prices are in GBP.
+
 ## Average
 
 @component('mail::table')
