@@ -16,6 +16,8 @@ abstract class DigestNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    private Collection $currencies;
+
     public function __construct(protected Carbon $start, protected Carbon $end)
     {
     }
@@ -94,7 +96,9 @@ abstract class DigestNotification extends Notification implements ShouldQueue
 
     private function currencies(): Collection
     {
-        return Currency::select('id', 'symbol')->get();
+        $this->currencies ??= Currency::select('id', 'symbol')->get();
+
+        return $this->currencies;
     }
 
     private function maxAverage(Coin $coin, Currency $currency): float
