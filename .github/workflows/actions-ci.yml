@@ -48,5 +48,6 @@ jobs:
       run: composer run-script stan
 
     - name: Run test suite
+      env:
         DB_PASSWORD: postgres
       run: composer run-script test -- --stop-on-failure
