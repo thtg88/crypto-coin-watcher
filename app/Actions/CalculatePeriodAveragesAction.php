@@ -7,7 +7,7 @@ use App\Models\Coin;
 use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;
 
-final class CalculatePeriodCoinPriceAveragesAction
+final class CalculatePeriodAveragesAction
 {
     public function __construct(
         private Coin $coin,
@@ -20,7 +20,7 @@ final class CalculatePeriodCoinPriceAveragesAction
     public function __invoke(): void
     {
         foreach ($this->currencies() as $currency) {
-            $action = new CalculatePeriodCoinPriceCurrencyAverageAction(
+            $action = new CalculatePeriodCurrencyAverageAction(
                 $this->coin,
                 $currency,
                 $this->value,

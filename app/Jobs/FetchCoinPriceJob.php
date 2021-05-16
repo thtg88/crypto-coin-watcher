@@ -103,11 +103,9 @@ final class FetchCoinPriceJob extends Job
 
     private function calculateCoinAverages(): void
     {
-        $job = new CalculateCoinAveragesJob(
+        dispatch(new CalculateAveragesJob(
             $this->coin_external_id,
             $this->currencies,
-        );
-
-        dispatch($job);
+        ));
     }
 }
