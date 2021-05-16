@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Jobs\SendVariationPercentageNotificationsJob;
 use App\Models\Average;
 use App\Models\Coin;
 use App\Models\Currency;
@@ -40,6 +41,10 @@ final class CalculatePeriodCurrencyAverageAction
             $this->data(),
             ['value' => (int) $this->average()],
         ));
+
+        if ($average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD) {
+            dispatch(new SendVariationPercentageNotificationsJob($average));
+        }
     }
 
     private function data(): array
