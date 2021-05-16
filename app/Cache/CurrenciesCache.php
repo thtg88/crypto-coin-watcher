@@ -17,12 +17,12 @@ final class CurrenciesCache
 
     public function get(): Collection
     {
-        return Cache::remember($this->currenciesCacheKey(), self::TTL, function () {
+        return Cache::remember($this->key(), self::TTL, function () {
             return Currency::whereIn('symbol', $this->currencies)->get();
         });
     }
 
-    private function currenciesCacheKey(): string
+    private function key(): string
     {
         return 'currencies-'.implode('_', $this->currencies);
     }
