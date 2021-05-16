@@ -25,7 +25,7 @@ final class AverageVariationHelper
         }
     }
 
-    public function percentage(): ?float
+    public function percentage(): float
     {
         return $this->rate() * 100;
     }
