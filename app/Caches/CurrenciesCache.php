@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cache;
+namespace App\Caches;
 
 use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;

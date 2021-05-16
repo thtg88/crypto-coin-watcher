@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Cache\CurrenciesCache;
+use App\Caches\CurrenciesCache;
 use App\Models\Coin;
 use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;

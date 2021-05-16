@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
-use App\Cache\CurrenciesCache;
+use App\Caches\CurrenciesCache;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\Price;
