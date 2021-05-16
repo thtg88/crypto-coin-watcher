@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Helpers\AverageVariationHelper;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\User;
@@ -46,6 +47,8 @@ abstract class DigestNotification extends Notification implements ShouldQueue
     {
         $first = $this->firstAverage($coin, $currency);
         $last = $this->lastAverage($coin, $currency);
+        $variation = (new AverageVariationHelper($first, $last))
+            ->formattedPercentage();
 
         return [
             'coin' => $coin->external_id,
@@ -55,20 +58,8 @@ abstract class DigestNotification extends Notification implements ShouldQueue
             'first' => $this->format($first),
             'last' => $this->format($last),
             'trend' => $this->getTrend($first, $last),
-            'variation_percentage' => $this->getVariationPercentage($first, $last),
+            'variation_percentage' => $variation,
         ];
-    }
-
-    private function getVariationPercentage(float $first_value, float $last_value): string
-    {
-        if ($first_value === 0.0) {
-            return '-';
-        }
-
-        $variation = $last_value - $first_value;
-        $percentage = ($variation / $first_value) * 100;
-
-        return number_format($percentage, 2);
     }
 
     private function getTrend(float $first_value, float $last_value): string
