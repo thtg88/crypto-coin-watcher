@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Helpers\AverageVariationHelper;
+use App\Helpers\TrendHelper;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\User;
@@ -64,11 +65,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
 
     private function getTrend(float $first_value, float $last_value): string
     {
-        if ($last_value > $first_value) {
-            return '✅';
-        }
-
-        return '🛑';
+        return (new TrendHelper($last_value > $first_value))->format();
     }
 
     private function format(float $value): string
