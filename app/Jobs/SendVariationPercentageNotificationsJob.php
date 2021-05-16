@@ -72,7 +72,7 @@ class SendVariationPercentageNotificationsJob extends Job
     private function startingAverage(): ?Average
     {
         return Average::orderBy('to')
-            ->where('to', '>=', $this->average->from)
+            ->where('to', '>=', $this->average->from->subHours(1))
             ->where('coin_id', $this->average->coin_id)
             ->where('currency_id', $this->average->currency_id)
             ->where('period', $this->average->period)
