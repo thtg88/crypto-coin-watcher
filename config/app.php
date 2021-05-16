@@ -243,7 +243,7 @@ return [
         'yearn-finance',
     ],
 
-    'average_coin_prices' => [
+    'averages' => [
         'time_periods' => [
             '1 hours',
             '1 days',
