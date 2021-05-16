@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Actions\CalculatePeriodCoinPriceAveragesAction;
+use App\Helpers\AverageTimePeriodHelper;
 use App\Models\Coin;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
@@ -18,7 +19,7 @@ final class CalculateCoinAveragesJob extends Job
     {
         $coin = $this->coin();
 
-        foreach ($this->getPeriodsMap() as $period => $quantity) {
+        foreach (AverageTimePeriodHelper::getMap() as $period => $quantity) {
             $action = new CalculatePeriodCoinPriceAveragesAction(
                 $coin,
                 $this->currencies,
@@ -35,19 +36,5 @@ final class CalculateCoinAveragesJob extends Job
     {
         /** @psalm-suppress InvalidReturnStatement */
         return Coin::firstWhere('external_id', $this->coin_external_id);
-    }
-
-    private function getPeriodsMap(): array
-    {
-        $time_periods = config('app.average_coin_prices.time_periods');
-        $time_periods_map = [];
-
-        foreach ($time_periods as $time_period) {
-            [$quantity, $period] = explode(' ', $time_period);
-
-            $time_periods_map[$period] = $quantity;
-        }
-
-        return $time_periods_map;
     }
 }
