@@ -74,7 +74,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
     private function getTrend(float $first_value, float $last_value): string
     {
         if ($last_value > $first_value) {
-            return '🟢';
+            return '✅';
         }
 
         return '🛑';
