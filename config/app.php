@@ -251,6 +251,4 @@ return [
             '1 months',
         ],
     ],
-
-    'recalculate_averages_from_datetime' => env('RECALCULATE_AVERAGES_FROM_DATETIME'),
 ];
