@@ -33,7 +33,7 @@ final class CalculatePeriodCurrencyAverageAction
         }
 
         $average = Average::firstWhere($this->data());
-        if ($average === null) {
+        if ($average !== null) {
             return;
         }
 
