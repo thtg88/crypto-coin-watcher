@@ -45,7 +45,7 @@ class RecalculateAveragesCommand extends Command
 
             $cursor = $cursor->copy()->addMinutes(2);
 
-            sleep(5);
+            sleep(4);
         }
 
         return 0;
