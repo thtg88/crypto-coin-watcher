@@ -12,6 +12,7 @@ use DivisionByZeroError;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class SendVariationPercentageNotificationsJob extends Job
 {
@@ -23,6 +24,7 @@ class SendVariationPercentageNotificationsJob extends Job
 
     private Coin $coin;
     private Currency $currency;
+    private Average $startingAverage;
 
     public function __construct(private Average $average)
     {
@@ -30,7 +32,11 @@ class SendVariationPercentageNotificationsJob extends Job
 
     public function handle(): void
     {
+        Log::debug('Processing SendVariationPercentageNotificationsJob...');
         if ($this->average->period !== self::PROCESSABLE_PERIOD) {
+            Log::debug("average->period: {$average->period}");
+            Log::debug('self::PROCESSABLE_PERIOD: '.self::PROCESSABLE_PERIOD);
+
             return;
         }
 
@@ -38,17 +44,28 @@ class SendVariationPercentageNotificationsJob extends Job
         try {
             $variation_percentage = $this->variationPercentage();
         } catch (DivisionByZeroError) {
+            Log::debug('division by zero, startingAverage: '.$this->startingAverage());
+            Log::debug('division by zero, average: '.$this->average);
             return;
         }
+
+        Log::debug("variation_percentage: {$variation_percentage}");
 
         // Do not bother notifying if difference is:
         // - 0 <= variation_percentage < 5
         // - -5 > variation_percentage >= 0
         if (abs($variation_percentage) < self::PERCENTAGE_THRESHOLD) {
+            Log::debug("variation too little, exiting");
             return;
         }
 
-        foreach ($this->alerts($variation_percentage) as $alert) {
+        $alerts = $this->alerts($variation_percentage);
+
+        Log::debug("alerts JSON: {$alerts->toJson()}");
+
+        foreach ($alerts as $alert) {
+            Log::debug("Processing alert: {$alert->toJson()}");
+
             $action = new SendVariationPercentageNotificationAction(
                 $alert,
                 $this->coin(),
@@ -71,12 +88,14 @@ class SendVariationPercentageNotificationsJob extends Job
 
     private function startingAverage(): ?Average
     {
-        return Average::orderBy('to')
+        $this->startingAverage ??= Average::orderBy('to')
             ->where('to', '>=', $this->average->from->subHours(1))
             ->where('coin_id', $this->average->coin_id)
             ->where('currency_id', $this->average->currency_id)
             ->where('period', $this->average->period)
             ->first();
+
+        return $this->startingAverage;
     }
 
     private function alerts(float $variation_percentage): Collection

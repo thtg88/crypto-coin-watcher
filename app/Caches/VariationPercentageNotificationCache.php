@@ -12,7 +12,7 @@ final class VariationPercentageNotificationCache
      *
      * @var int
      */
-    private const TTL = 3_600;
+    public const TTL = 3_600;
 
     public function __construct(
         private int $user_id,
