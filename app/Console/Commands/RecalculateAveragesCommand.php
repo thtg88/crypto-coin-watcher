@@ -53,7 +53,7 @@ class RecalculateAveragesCommand extends Command
 
     private function from(): Carbon
     {
-        return new Carbon('2021-05-16 21:15:00');
+        return new Carbon('2021-05-17 00:05:00');
     }
 
     private function to(): Carbon
