@@ -45,7 +45,7 @@ class RecalculateAveragesCommand extends Command
 
             $cursor = $cursor->copy()->addMinutes(2);
 
-            sleep(1);
+            sleep(5);
         }
 
         return 0;
@@ -53,7 +53,7 @@ class RecalculateAveragesCommand extends Command
 
     private function from(): Carbon
     {
-        return new Carbon('2021-05-16 20:29:00');
+        return new Carbon('2021-05-16 21:15:00');
     }
 
     private function to(): Carbon
