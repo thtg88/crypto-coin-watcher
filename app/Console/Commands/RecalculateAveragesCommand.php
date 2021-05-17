@@ -36,8 +36,6 @@ class RecalculateAveragesCommand extends Command
             dump("processing {$cursor}");
 
             foreach ($this->coins() as $coin_external_id) {
-                dump("processing {$coin_external_id}");
-
                 dispatch(new CalculateAveragesJob(
                     $cursor,
                     $coin_external_id,
@@ -46,6 +44,8 @@ class RecalculateAveragesCommand extends Command
             }
 
             $cursor = $cursor->copy()->addMinutes(2);
+
+            sleep(1);
         }
 
         return 0;
