@@ -43,7 +43,7 @@ final class CalculatePeriodCurrencyAverageAction
         ));
 
         if ($average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD) {
-            // dispatch(new SendVariationPercentageNotificationsJob($average));
+            dispatch(new SendVariationPercentageNotificationsJob($average));
         }
     }
 
