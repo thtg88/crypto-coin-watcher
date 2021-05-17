@@ -6,10 +6,12 @@ use App\Caches\CurrenciesCache;
 use App\Models\Coin;
 use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 final class CalculatePeriodAveragesAction
 {
     public function __construct(
+        private Carbon $end_date,
         private Coin $coin,
         private array $currencies,
         private int $value,
@@ -23,6 +25,7 @@ final class CalculatePeriodAveragesAction
             $action = new CalculatePeriodCurrencyAverageAction(
                 $this->coin,
                 $currency,
+                $this->end_date,
                 $this->value,
                 $this->period,
             );

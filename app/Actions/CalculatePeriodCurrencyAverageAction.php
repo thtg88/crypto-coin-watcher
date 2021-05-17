@@ -15,11 +15,11 @@ final class CalculatePeriodCurrencyAverageAction
 {
     private array $data;
     private Carbon $pricesFrom;
-    private Carbon $pricesTo;
 
     public function __construct(
         private Coin $coin,
         private Currency $currency,
+        private Carbon $prices_to,
         private int $value,
         private string $period,
     ) {
@@ -98,16 +98,14 @@ final class CalculatePeriodCurrencyAverageAction
     {
         $method = $this->getCarbonMethod();
 
-        $this->pricesFrom ??= now()->$method($this->value);
+        $this->pricesFrom ??= $this->prices_to->$method($this->value);
 
         return $this->pricesFrom->toDateTimeString();
     }
 
     private function pricesTo(): string
     {
-        $this->pricesTo ??= now();
-
-        return $this->pricesTo->toDateTimeString();
+        return $this->prices_to->toDateTimeString();
     }
 
     private function getCarbonMethod(): string
