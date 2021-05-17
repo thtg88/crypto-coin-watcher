@@ -32,11 +32,7 @@ class SendVariationPercentageNotificationsJob extends Job
 
     public function handle(): void
     {
-        Log::debug('Processing SendVariationPercentageNotificationsJob...');
         if ($this->average->period !== self::PROCESSABLE_PERIOD) {
-            Log::debug("average->period: {$average->period}");
-            Log::debug('self::PROCESSABLE_PERIOD: '.self::PROCESSABLE_PERIOD);
-
             return;
         }
 
@@ -49,7 +45,7 @@ class SendVariationPercentageNotificationsJob extends Job
             return;
         }
 
-        Log::debug("variation_percentage: {$variation_percentage}");
+        Log::debug("coin={$this->coin()->external_id} variation_percentage={$variation_percentage}");
 
         // Do not bother notifying if difference is:
         // - 0 <= variation_percentage < 5

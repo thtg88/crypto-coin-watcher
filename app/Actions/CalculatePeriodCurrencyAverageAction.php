@@ -9,7 +9,6 @@ use App\Models\Currency;
 use App\Models\Price;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 final class CalculatePeriodCurrencyAverageAction
@@ -41,16 +40,6 @@ final class CalculatePeriodCurrencyAverageAction
             $this->data(),
             ['value' => (int) $this->average()],
         ));
-
-        Log::debug("average->period: {$average->period}");
-        Log::debug(
-            "SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD: ".
-            SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD
-        );
-        Log::debug(
-            '$average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD '.
-            json_encode($average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD)
-        );
 
         if ($average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD) {
             dispatch(new SendVariationPercentageNotificationsJob($average));
