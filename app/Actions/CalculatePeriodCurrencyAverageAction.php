@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 final class CalculatePeriodCurrencyAverageAction
 {
     private array $data;
-    private Carbon $pricesFrom;
 
     public function __construct(
         private Coin $coin,
@@ -98,9 +97,9 @@ final class CalculatePeriodCurrencyAverageAction
     {
         $method = $this->getCarbonMethod();
 
-        $this->pricesFrom ??= $this->prices_to->$method($this->value);
-
-        return $this->pricesFrom->toDateTimeString();
+        return $this->prices_to->copy()
+            ->$method($this->value)
+            ->toDateTimeString();
     }
 
     private function pricesTo(): string
