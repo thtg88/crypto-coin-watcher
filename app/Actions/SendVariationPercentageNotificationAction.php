@@ -22,7 +22,7 @@ final class SendVariationPercentageNotificationAction
 
     public function __invoke(): void
     {
-        // Don't re-process if already sent in the past hour
+        // Don't re-process if already sent in the past 2 hours
         $cache = new VariationPercentageNotificationCache(
             $this->alert->user_id,
             $this->coin->external_id,

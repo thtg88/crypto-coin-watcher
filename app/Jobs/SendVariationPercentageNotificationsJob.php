@@ -74,13 +74,20 @@ class SendVariationPercentageNotificationsJob extends Job
     private function startingAverage(): ?Average
     {
         $this->startingAverage ??= Average::orderBy('to')
-            ->where('to', '>=', $this->average->from->subHours(1))
+            ->where('to', '>=', $this->startingAverageDateTime())
             ->where('coin_id', $this->average->coin_id)
             ->where('currency_id', $this->average->currency_id)
             ->where('period', $this->average->period)
             ->first();
 
         return $this->startingAverage;
+    }
+
+    private function startingAverageDateTime(): string
+    {
+        return $this->average->from
+            ->subSeconds(VariationPercentageNotificationCache::TTL)
+            ->toDateTimeString();
     }
 
     private function alerts(float $variation_percentage): Collection

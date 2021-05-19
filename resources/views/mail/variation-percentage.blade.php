@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hi {{ $notifiable->name }}
 
-The following variation in the past {{ $period }} has triggered your alert.
+The following variation in the past {{ VariationPercentageNotificationCache::TTL / 60 / 60 }} hours has triggered your alert.
 
 ## Variation
 
