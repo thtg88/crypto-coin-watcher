@@ -40,28 +40,17 @@ class SendVariationPercentageNotificationsJob extends Job
         try {
             $variation_percentage = $this->variationPercentage();
         } catch (DivisionByZeroError) {
-            Log::debug('division by zero, startingAverage: '.$this->startingAverage());
-            Log::debug('division by zero, average: '.$this->average);
             return;
         }
-
-        Log::debug("coin={$this->coin()->external_id} variation_percentage={$variation_percentage}");
 
         // Do not bother notifying if difference is:
         // - 0 <= variation_percentage < 5
         // - -5 > variation_percentage >= 0
         if (abs($variation_percentage) < self::PERCENTAGE_THRESHOLD) {
-            Log::debug("variation too little, exiting");
             return;
         }
 
-        $alerts = $this->alerts($variation_percentage);
-
-        Log::debug("alerts JSON: {$alerts->toJson()}");
-
-        foreach ($alerts as $alert) {
-            Log::debug("Processing alert: {$alert->toJson()}");
-
+        foreach ($this->alerts($variation_percentage) as $alert) {
             $action = new SendVariationPercentageNotificationAction(
                 $alert,
                 $this->coin(),

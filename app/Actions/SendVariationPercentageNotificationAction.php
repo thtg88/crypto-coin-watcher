@@ -30,23 +30,14 @@ final class SendVariationPercentageNotificationAction
             $this->period,
         );
         if ($cache->has()) {
-            Log::debug(
-                "Cache already present for {$this->alert->user_id} ".
-                "{$this->coin->external_id} {$this->currency->symbol} ".
-                "{$this->period}"
-            );
             return;
         }
-
-        Log::debug("Notifying {$this->alert->user->name}");
 
         $this->alert->user->notify(new VariationPercentageNotification(
             $this->period,
             $this->coin->external_id,
             $this->variation_percentage
         ));
-
-        Log::debug('Caching results for '.VariationPercentageNotificationCache::TTL);
 
         // By get-ting, we store the value in cache for the TTL
         // So that we don't reprocess the notification for the next TTL

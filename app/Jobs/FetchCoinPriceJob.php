@@ -26,12 +26,8 @@ final class FetchCoinPriceJob extends Job
         $coin = $this->coin();
         $external_id = $this->coin_external_id;
         if ($coin === null) {
-            Log::warning("Coin {$external_id} not found!");
-
             return;
         }
-
-        Log::debug("Fetching {$external_id} price...");
 
         // If fetching price fail, the queue will deal with it
         $coin_prices_data = $this->coinPrices($coin);
@@ -39,11 +35,6 @@ final class FetchCoinPriceJob extends Job
         $coin_price_data = $coin_prices_data->$external_id;
 
         if ($coin->getLastPriceUpdatedAtTimestamp() === $coin_price_data->last_updated_at) {
-            Log::debug(
-                "No new prices for {$external_id}. ".
-                "Last updated {$this->formatTimestamp($coin_price_data->last_updated_at)}"
-            );
-
             return;
         }
 
