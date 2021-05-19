@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Caches\VariationPercentageNotificationCache;
+use App\Models\Average;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\VariationPercentageAlert;
@@ -15,8 +16,8 @@ final class SendVariationPercentageNotificationAction
         private VariationPercentageAlert $alert,
         private Coin $coin,
         private Currency $currency,
+        private Average $final_average,
         private float $variation_percentage,
-        private string $period,
     ) {
     }
 
@@ -27,14 +28,15 @@ final class SendVariationPercentageNotificationAction
             $this->alert->user_id,
             $this->coin->external_id,
             $this->currency->symbol,
-            $this->period,
+            $this->final_average->period,
         );
         if ($cache->has()) {
             return;
         }
 
         $this->alert->user->notify(new VariationPercentageNotification(
-            $this->period,
+            $this->final_average->period,
+            $this->final_average->value,
             $this->coin->external_id,
             $this->variation_percentage
         ));

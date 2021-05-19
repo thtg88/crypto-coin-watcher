@@ -15,6 +15,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
 
     public function __construct(
         private string $period,
+        private float $final_value,
         private string $coin_external_id,
         private float $variation_percentage,
     ) {
@@ -29,6 +30,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
     {
         return (new MailMessage)->markdown('mail.variation-percentage', [
             'coin_external_id' => $this->coin_external_id,
+            'final_value' => $this->final_value,
             'notifiable' => $notifiable,
             'period' => $this->period,
             'trend' => $this->trend(),

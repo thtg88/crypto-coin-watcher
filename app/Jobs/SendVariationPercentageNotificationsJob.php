@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Actions\SendVariationPercentageNotificationAction;
+use App\Caches\VariationPercentageNotificationCache;
 use App\Helpers\AverageVariationHelper;
 use App\Models\Average;
 use App\Models\Coin;
@@ -55,8 +56,8 @@ class SendVariationPercentageNotificationsJob extends Job
                 $alert,
                 $this->coin(),
                 $this->currency(),
+                $this->average,
                 $variation_percentage,
-                $this->average->period,
             );
 
             $action();

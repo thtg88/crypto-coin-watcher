@@ -6,9 +6,9 @@ The following variation in the past {{ VariationPercentageNotificationCache::TTL
 ## Variation
 
 @component('mail::table')
-| Coin | Variation |
-|------|----------:|
-| {{ $coin_external_id }} | {{ $variation_percentage.'% '.$trend }} |
+| Coin | Variation | Current Avg Value |
+|------|----------:|------------------:|
+| {{ $coin_external_id }} | {{ $variation_percentage.'% '.$trend }} | {{ $final_value }} |
 @endcomponent
 
 Thanks,<br>
