@@ -30,7 +30,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
     {
         return (new MailMessage)->markdown('mail.variation-percentage', [
             'coin_external_id' => $this->coin_external_id,
-            'final_value' => $this->final_value,
+            'final_value' => number_format($this->final_value, 3),
             'notifiable' => $notifiable,
             'period' => $this->period,
             'trend' => $this->trend(),
