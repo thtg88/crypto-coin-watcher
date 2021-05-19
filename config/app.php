@@ -239,7 +239,6 @@ return [
         'ethereum',
         'dogecoin',
         'matic-network',
-        'stellar',
         'yearn-finance',
     ],
 
