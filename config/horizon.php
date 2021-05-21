@@ -175,6 +175,8 @@ return [
             'tries' => 3,
             'timeout' => 20,
             'backoff' => [15, 30, 45],
+            'maxJobs' => 1000,
+            'maxTime' => 3600,
         ],
     ],
 
