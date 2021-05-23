@@ -35,8 +35,13 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
             'notifiable' => $notifiable,
             'period' => $this->period,
             'trend' => $this->trend(),
-            'variation_percentage' => number_format($this->variation_percentage, 2),
+            'variation_percentage' => $this->format(),
         ]);
+    }
+
+    private function format(): string
+    {
+        return number_format($this->variation_percentage, 2);
     }
 
     private function trend(): string
