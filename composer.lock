@@ -6862,16 +6862,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "dev-master",
+            "version": "2.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c4ed9f5566c17f5d65750c0eb60d6fe29332429b"
+                "reference": "92b2ccbef65292ba9f2004271ef47c7231e2eed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c4ed9f5566c17f5d65750c0eb60d6fe29332429b",
-                "reference": "c4ed9f5566c17f5d65750c0eb60d6fe29332429b",
+                "url": "https://api.github.com/repos/composer/composer/zipball/92b2ccbef65292ba9f2004271ef47c7231e2eed5",
+                "reference": "92b2ccbef65292ba9f2004271ef47c7231e2eed5",
                 "shasum": ""
             },
             "require": {
@@ -6886,28 +6886,27 @@
                 "react/promise": "^1.2 || ^2.7",
                 "seld/jsonlint": "^1.4",
                 "seld/phar-utils": "^1.0",
-                "symfony/console": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
-                "symfony/filesystem": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
-                "symfony/finder": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0",
-                "symfony/process": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0"
+                "symfony/console": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0",
+                "symfony/filesystem": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0",
+                "symfony/finder": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0",
+                "symfony/process": "^2.8.52 || ^3.4.35 || ^4.4 || ^5.0 || ^6.0"
             },
             "require-dev": {
                 "phpspec/prophecy": "^1.10",
-                "symfony/phpunit-bridge": "^4.2 || ^5.0"
+                "symfony/phpunit-bridge": "^4.2 || ^5.0 || ^6.0"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
                 "ext-zip": "Enabling the zip extension allows you to unzip archives",
                 "ext-zlib": "Allow gzip compression of HTTP requests"
             },
-            "default-branch": true,
             "bin": [
                 "bin/composer"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -6941,7 +6940,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/master"
+                "source": "https://github.com/composer/composer/tree/2.0.14"
             },
             "funding": [
                 {
@@ -6957,7 +6956,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-19T13:24:01+00:00"
+            "time": "2021-05-21T15:03:37+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -11099,24 +11098,24 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.17.4",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "e48be16da1952ffca868c77f509a767d3fc632bc"
+                "reference": "4795633baffc7a1778e2be4a35f90a137f88ee7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/e48be16da1952ffca868c77f509a767d3fc632bc",
-                "reference": "e48be16da1952ffca868c77f509a767d3fc632bc",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/4795633baffc7a1778e2be4a35f90a137f88ee7d",
+                "reference": "4795633baffc7a1778e2be4a35f90a137f88ee7d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/contracts": "^7.20|^8.0",
-                "illuminate/database": "^7.20|^8.13",
-                "illuminate/queue": "^7.20|^8.13",
-                "illuminate/support": "^7.20|^8.13",
+                "illuminate/contracts": "^7.20|^8.19",
+                "illuminate/database": "^7.20|^8.19",
+                "illuminate/queue": "^7.20|^8.19",
+                "illuminate/support": "^7.20|^8.19",
                 "php": "^7.3|^8.0",
                 "spatie/backtrace": "^1.0",
                 "spatie/ray": "^1.21.2",
@@ -11163,7 +11162,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.17.4"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.18.0"
             },
             "funding": [
                 {
@@ -11175,7 +11174,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-04-30T08:20:24+00:00"
+            "time": "2021-05-23T09:58:54+00:00"
         },
         {
             "name": "spatie/macroable",
