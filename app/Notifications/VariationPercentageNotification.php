@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Helpers\CurrencyHelper;
 use App\Helpers\TrendHelper;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -30,7 +31,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
     {
         return (new MailMessage)->markdown('mail.variation-percentage', [
             'coin_external_id' => $this->coin_external_id,
-            'final_value' => number_format($this->final_value, 3),
+            'final_value' =>(new CurrencyHelper($this->final_value))->format(),
             'notifiable' => $notifiable,
             'period' => $this->period,
             'trend' => $this->trend(),

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Helpers\AverageVariationHelper;
+use App\Helpers\CurrencyHelper;
 use App\Helpers\TrendHelper;
 use App\Models\Coin;
 use App\Models\Currency;
@@ -70,11 +71,7 @@ abstract class DigestNotification extends Notification implements ShouldQueue
 
     private function format(float $value): string
     {
-        if ($value >= 1000) {
-            return number_format($value, 2);
-        }
-
-        return (string) $value;
+        return (new CurrencyHelper($value))->format();
     }
 
     private function coins(): Collection
