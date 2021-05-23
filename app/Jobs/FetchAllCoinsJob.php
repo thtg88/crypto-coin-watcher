@@ -32,7 +32,7 @@ final class FetchAllCoinsJob extends Job
 
     private function fetchCoins(): Collection
     {
-        return Client::make()->listCoins();
+        return app(Client::class)->listCoins();
     }
 
     private function updateOrCreate(array $coin): Coin

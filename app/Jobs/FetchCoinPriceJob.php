@@ -55,7 +55,7 @@ final class FetchCoinPriceJob extends Job
 
     private function coinPrices($coin): object
     {
-        return Client::make()->coinPrices(
+        return app(Client::class)->coinPrices(
             $coin->external_id,
             $this->currencies
         );
