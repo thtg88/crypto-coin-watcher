@@ -236,7 +236,6 @@ return [
 
     'enabled_coins' => [
         'algorand',
-        'bitcoin',
         'ethereum',
         'dogecoin',
         'matic-network',
