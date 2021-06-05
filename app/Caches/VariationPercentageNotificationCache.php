@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 final class VariationPercentageNotificationCache
 {
     /**
-     * One hour (3,600s).
+     * Two hours (7,200s).
      *
      * @var int
      */
