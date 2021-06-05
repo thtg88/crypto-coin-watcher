@@ -27,8 +27,7 @@ class Kernel extends ConsoleKernel
         // Every morning at 8am (7am UTC)
         $schedule->job(new SendDailyDigestsJob())->dailyAt('07:00');
         // Every Saturday at 10am (9am UTC)
-        $schedule->job(new SendWeeklyDigestsJob())->everyTwoMinutes();
-        // $schedule->job(new SendWeeklyDigestsJob())->weeklyOn(6, '09:00');
+        $schedule->job(new SendWeeklyDigestsJob())->weeklyOn(6, '09:00');
         $schedule->command('enabled-coins:fetch-prices')->everyTwoMinutes();
         $schedule->command('horizon:snapshot')->everyMinute();
         $schedule->command('telescope:prune --hours=24')->everyMinute();
