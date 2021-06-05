@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Jobs\SendThresholdAlertsJob;
 use App\Jobs\SendVariationPercentageNotificationsJob;
 use App\Models\Average;
 use App\Models\Coin;
@@ -42,6 +43,10 @@ final class CalculatePeriodCurrencyAverageAction
 
         if ($average->period === SendVariationPercentageNotificationsJob::PROCESSABLE_PERIOD) {
             dispatch(new SendVariationPercentageNotificationsJob($average));
+        }
+
+        if ($average->period === SendThresholdAlertsJob::PROCESSABLE_PERIOD) {
+            dispatch(new SendThresholdAlertsJob($average));
         }
     }
 
