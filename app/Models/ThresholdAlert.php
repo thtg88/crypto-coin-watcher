@@ -16,6 +16,7 @@ class ThresholdAlert extends Model
      */
     protected $fillable = [
         'coin_id',
+        'currency_id',
         'trend',
         'user_id',
         'value',
@@ -28,6 +29,7 @@ class ThresholdAlert extends Model
      */
     protected $casts = [
         'coin_id' => 'integer',
+        'currency_id' => 'integer',
         'trend' => 'boolean',
         'user_id' => 'integer',
         'value' => 'integer',
@@ -36,6 +38,11 @@ class ThresholdAlert extends Model
     public function coin(): BelongsTo
     {
         return $this->belongsTo(Coin::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function user(): BelongsTo

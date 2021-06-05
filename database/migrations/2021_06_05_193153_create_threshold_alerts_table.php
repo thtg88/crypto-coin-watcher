@@ -17,6 +17,7 @@ class CreateThresholdAlertsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('coin_id')->constrained()->onDelete('cascade');
+            $table->foreignId('currency_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('value');
             $table->boolean('trend');
             $table->timestamps();
