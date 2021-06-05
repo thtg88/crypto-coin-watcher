@@ -46,11 +46,6 @@ class SendThresholdAlertsJob extends Job
 
     private function alerts(): Collection
     {
-        return $this->alertsQuery()->get();
-    }
-
-    private function alertsQuery(): Builder
-    {
         return ThresholdAlert::query()
             ->with('user')
             ->where('coin_id', $this->coin()->id)
@@ -78,6 +73,7 @@ class SendThresholdAlertsJob extends Job
                         )
                     );
                 });
-            });
+            })
+            ->get();
     }
 }
