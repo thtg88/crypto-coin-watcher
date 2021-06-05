@@ -33,11 +33,14 @@ class SendWeeklyDigestsJob extends Job
 
     private function alerts(): Collection
     {
-        $last_sent_week = DB::raw("EXTRACT('week' FROM last_sent_at)");
-
         return Alert::with('user')
             ->where('type', 'weekly-digest')
-            ->where($last_sent_week, '<>', now()->weekOfYear)
+            ->where(static function ($query) {
+                $last_sent_week = DB::raw("EXTRACT('week' FROM last_sent_at)");
+
+                $query->orWhereNull('last_sent_at')
+                    ->orWhere($last_sent_week, '<>', now()->weekOfYear);
+            })
             ->get();
     }
 }
