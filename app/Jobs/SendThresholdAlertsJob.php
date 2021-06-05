@@ -23,9 +23,6 @@ class SendThresholdAlertsJob extends Job
 
     public function handle(): void
     {
-        Log::debug("{$this->alertsQuery()->toSql()}");
-        Log::debug('BINDINGS: '.implode(',', $this->alertsQuery()->getBindings()));
-
         $alerts = $this->alerts();
 
         Log::debug("{$alerts->count()} alerts found for {$this->coin()->external_id}");
