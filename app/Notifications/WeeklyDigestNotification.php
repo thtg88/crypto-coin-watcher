@@ -13,7 +13,7 @@ class WeeklyDigestNotification extends DigestNotification
 {
     public function toMail(User $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.digests.weekly', [
+        return (new MailMessage())->markdown('mail.digests.weekly', [
             'data' => $this->getData(),
             'notifiable' => $notifiable,
             'start' => $this->start,

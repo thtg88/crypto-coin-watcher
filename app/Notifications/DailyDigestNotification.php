@@ -13,7 +13,7 @@ class DailyDigestNotification extends DigestNotification
 {
     public function toMail(User $notifiable): MailMessage
     {
-        return (new MailMessage)->markdown('mail.digests.daily', [
+        return (new MailMessage())->markdown('mail.digests.daily', [
             'data' => $this->getData(),
             'notifiable' => $notifiable,
             'start' => $this->start,
