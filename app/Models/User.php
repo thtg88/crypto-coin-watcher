@@ -46,6 +46,11 @@ class User extends Authenticatable
 
     // MUTATORS
 
+    public function setEmailAttribute($value): void
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
     public function setPasswordAttribute(string $value): void
     {
         $this->attributes['password'] = Hash::make($value);
