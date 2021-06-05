@@ -12,13 +12,21 @@ class SendWeeklyDigestsJob extends Job
 {
     public function handle(): void
     {
+        $alerts = $this->alerts();
+
+        Log::debug("{$alerts->count()} weekly alerts found");
+
         foreach ($this->alerts() as $alert) {
+            Log::debug("Sending weekly alert to {$alert->user->name} ({$alert->user->email})...");
+
             $alert->user->notify(new WeeklyDigestNotification(
                 now()->copy()->setTime(9, 0)->subDays(7),
                 now()->copy()->setTime(9, 0),
             ));
 
             $alert->update(['last_sent_at' => now()->toDateTimeString()]);
+
+            Log::debug("Sent weekly alert to {$alert->user->name} ({$alert->user->email})");
         }
     }
 
