@@ -9,7 +9,6 @@ use App\Models\Currency;
 use App\Models\ThresholdAlert;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 class SendThresholdAlertsJob extends Job
 {
@@ -23,11 +22,7 @@ class SendThresholdAlertsJob extends Job
 
     public function handle(): void
     {
-        $alerts = $this->alerts();
-
-        Log::debug("{$alerts->count()} alerts found for {$this->coin()->external_id}");
-
-        foreach ($alerts as $alert) {
+        foreach ($this->alerts() as $alert) {
             $action = new SendThresholdAlertAction($alert, $this->average);
 
             $action();
