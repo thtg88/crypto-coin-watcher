@@ -8,7 +8,6 @@ use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\VariationPercentageAlert;
 use App\Notifications\VariationPercentageNotification;
-use Illuminate\Support\Facades\Log;
 
 final class SendVariationPercentageNotificationAction
 {
