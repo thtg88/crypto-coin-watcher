@@ -13,7 +13,6 @@ use DivisionByZeroError;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 class SendVariationPercentageNotificationsJob extends Job
 {
