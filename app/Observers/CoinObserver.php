@@ -5,7 +5,6 @@ namespace App\Observers;
 use App\Jobs\FetchCoinPriceJob;
 use App\Models\Coin;
 use App\Models\Currency;
-use Illuminate\Support\Facades\Log;
 
 class CoinObserver
 {
