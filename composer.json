@@ -55,8 +55,7 @@
             "@php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan horizon:publish --ansi",
-            "@php artisan telescope:publish --ansi"
+            "@php artisan horizon:publish --ansi"
         ],
         "optimize-laravel-cmd": [
             "@php artisan event:cache",
