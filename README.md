@@ -1,19 +1,19 @@
 # Crypto Coin Watcher
 
-Crypto Coin Watcher is an application that fetches prices of crypto currencies and calculates averages and sends alerts to users.
+Crypto Coin Watcher is an application that sends you alerts about prices and averages of crypto currencies.
 
 ## Requirements
 
-- PHP 8.0
-- Composer 2
+- PHP 8.0: on macOS you can install it via Homebrew: `brew install php@8.0`;
+- Composer 2: see the [Composer documentation](https://getcomposer.org/download/) for instructions to install it
 
 ## Functionality
 
 Crypto Coin Watcher has 3 types of alerts available:
 
-- Regular alerts (daily or weekly): send an email about the trend and min and max value of a set of crypto currencies, from the past period of time
-- Threshold alert: send an email when a crypto currency goes above or below a certain configured fiat currency threshold
-- Variation alert: send an email whenever a crypto currency has a growth of a certain percentage in the past 2h
+- Regular alerts (daily or weekly): send an email about the trend and min and max value of a set of crypto currencies, for a past period of time;
+- Threshold alert: send an email when a crypto currency goes above or below a certain configured fiat currency threshold;
+- Variation alert: send an email whenever a crypto currency has a growth of a certain percentage in the past 2h;
 
 ## Technologies
 
