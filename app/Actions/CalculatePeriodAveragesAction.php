@@ -4,7 +4,6 @@ namespace App\Actions;
 
 use App\Caches\CurrenciesCache;
 use App\Models\Coin;
-use App\Models\Currency;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 

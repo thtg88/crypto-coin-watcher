@@ -35,8 +35,6 @@ class Average extends Model
         'value' => 'float',
     ];
 
-    // RELATIONSHIPS
-
     public function coin(): BelongsTo
     {
         return $this->belongsTo(Coin::class);

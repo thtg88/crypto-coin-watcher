@@ -27,8 +27,6 @@ class Alert extends Model
         'user_id' => 'integer',
     ];
 
-    // RELATIONSHIPS
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
