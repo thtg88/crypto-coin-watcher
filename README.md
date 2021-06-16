@@ -18,3 +18,31 @@ Crypto Coin Watcher has 3 types of alerts available:
 ## Technologies
 
 This application leverages the [CoinGeck API](https://www.coingecko.com/api/documentations/v3#/) to fetch crypto currency data, Laravel Horizon queue manager to offload queue jobs (especially around communicating with the CoinGecko API) and the Laravel Scheduler for regular work like fetching the current currency value every 2 minutes
+
+## Development
+
+### Setup
+
+From your terminal, run the following commands:
+
+```bash
+git clone git@github.com:thtg88/crypto-coin-watcher.git
+cd crypto-coin-watcher
+composer install
+yarn
+php artisan db:create crypto_coin_watcher
+php artisan migrate --seed
+# Make also sure all coins data is available to start with
+php artisan tinker
+dispatch_now(new App\Jobs\FetchAllCoinsJob())
+```
+
+### Serving
+
+Make sure to run all the following commands in separate terminal windows/tabs to serve your application locally:
+
+```bash
+php artisan serve
+php artisan horizon
+php artisan schedule:work
+```
