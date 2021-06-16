@@ -17,7 +17,7 @@ Crypto Coin Watcher has 3 types of alerts available:
 
 ## Technologies
 
-This application leverages the [CoinGeck API](https://www.coingecko.com/api/documentations/v3#/) to fetch crypto currency data, Laravel Horizon queue manager to offload queue jobs (especially around communicating with the CoinGecko API) and the Laravel Scheduler for regular work like fetching the current currency value every 2 minutes
+This application leverages the [CoinGecko API](https://www.coingecko.com/api/documentations/v3#/) to fetch crypto currency data, Laravel Horizon queue manager to offload queue jobs (especially around communicating with the CoinGecko API) and the Laravel Scheduler for regular work like fetching the current currency value every 2 minutes
 
 ## Development
 
