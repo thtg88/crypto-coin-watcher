@@ -7,14 +7,11 @@ use App\Models\Average;
 use App\Models\Coin;
 use App\Models\Currency;
 use App\Models\ThresholdAlert;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class SendThresholdAlertsJob extends Job
 {
     public const PROCESSABLE_PERIOD = '1 hours';
-
-    private Average $previousAverage;
 
     public function __construct(private Average $average)
     {

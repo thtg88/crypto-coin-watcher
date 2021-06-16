@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\ApiConsumers\CoinClients\CoinGecko\V3\Client;
 use App\Models\Coin;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 final class FetchAllCoinsJob extends Job
