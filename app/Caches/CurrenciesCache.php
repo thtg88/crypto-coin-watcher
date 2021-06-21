@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Cache;
 
 final class CurrenciesCache
 {
-    /** @var int */
-    private const TTL = 120;
+    /**
+     * 24h
+     *
+     * @var int
+     */
+    private const TTL = 1_440;
 
     public function __construct(private array $currencies)
     {
