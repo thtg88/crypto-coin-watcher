@@ -13,7 +13,7 @@ final class CurrenciesCache
      *
      * @var int
      */
-    private const TTL = 1_440;
+    private const TTL = 86_400;
 
     public function __construct(private array $currencies)
     {
