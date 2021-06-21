@@ -7,18 +7,12 @@ use Illuminate\Support\Str;
 
 final class VariationPercentageNotificationCache
 {
-    /**
-     * Two hours (7,200s).
-     *
-     * @var int
-     */
-    public const TTL = 7_200;
-
     public function __construct(
         private int $user_id,
         private string $coin_external_id,
         private string $currency_symbol,
         private string $period,
+        private int $ttl = 7_200,
     ) {
     }
 
@@ -29,7 +23,7 @@ final class VariationPercentageNotificationCache
 
     public function get(): bool
     {
-        return Cache::remember($this->key(), self::TTL, function () {
+        return Cache::remember($this->key(), $this->ttl, function () {
             return true;
         });
     }

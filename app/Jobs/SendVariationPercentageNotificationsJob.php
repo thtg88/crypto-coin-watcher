@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Actions\SendVariationPercentageNotificationAction;
-use App\Caches\VariationPercentageNotificationCache;
 use App\Helpers\AverageVariationHelper;
 use App\Models\Average;
 use App\Models\Coin;
@@ -86,7 +85,7 @@ class SendVariationPercentageNotificationsJob extends Job
     private function startingAverageDateTime(): string
     {
         return $this->average->from
-            ->subSeconds(VariationPercentageNotificationCache::TTL)
+            ->subSeconds(config('app.cache_ttls.variation_percentage_notification'))
             ->toDateTimeString();
     }
 

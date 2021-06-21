@@ -28,6 +28,7 @@ final class SendVariationPercentageNotificationAction
             $this->coin->external_id,
             $this->currency->symbol,
             $this->final_average->period,
+            config('app.cache_ttls.variation_percentage_notification'),
         );
         if ($cache->has()) {
             return;

@@ -249,4 +249,21 @@ return [
             '1 months',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache TTLs
+    |--------------------------------------------------------------------------
+    |
+    | These variables represent TTLs for certain application caches.
+    | All TTLs are in seconds.
+    |
+    */
+
+    'cache_ttls' => [
+        'variation_percentage_notification' => (int) env(
+            'CACHE_TTLS_VARIATION_PERCENTAGE_NOTIFICATION',
+            7_200
+        ),
+    ],
 ];
