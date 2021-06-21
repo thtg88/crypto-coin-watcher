@@ -38,7 +38,7 @@ final class SendVariationPercentageNotificationAction
             $this->final_average->period,
             $this->final_average->value,
             $this->coin->external_id,
-            $this->variation_percentage
+            $this->variation_percentage,
         ));
 
         // By get-ting, we store the value in cache for the TTL
