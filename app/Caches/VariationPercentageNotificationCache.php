@@ -12,7 +12,7 @@ final class VariationPercentageNotificationCache
         private string $coin_external_id,
         private string $currency_symbol,
         private string $period,
-        private int $ttl = 7_200,
+        private int $ttl,
     ) {
     }
 
