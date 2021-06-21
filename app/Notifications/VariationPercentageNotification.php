@@ -19,6 +19,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
         private float $final_value,
         private string $coin_external_id,
         private float $variation_percentage,
+        private int $seconds_between_alerts,
     ) {
     }
 
@@ -34,6 +35,7 @@ class VariationPercentageNotification extends Notification implements ShouldQueu
             'final_value' => (new CurrencyHelper($this->final_value))->format(),
             'notifiable' => $notifiable,
             'period' => $this->period,
+            'seconds_between_alerts' => $this->seconds_between_alerts,
             'trend' => $this->trend(),
             'variation_percentage' => $this->format(),
         ]);
