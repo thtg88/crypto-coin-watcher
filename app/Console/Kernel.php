@@ -28,11 +28,11 @@ class Kernel extends ConsoleKernel
         $schedule->job(new SendDailyDigestsJob())->dailyAt('07:00');
         // Every Saturday at 10am (9am UTC)
         $schedule->job(new SendWeeklyDigestsJob())->weeklyOn(6, '09:00');
-        $schedule->command('enabled-coins:fetch-prices')->everyTwoMinutes();
-        $schedule->command('horizon:snapshot')->everyTwoMinutes();
+        $schedule->command('enabled-coins:fetch-prices')->everyFiveMinutes();
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         if (config('telescope.enabled') === true) {
-            $schedule->command('telescope:prune --hours=24')->everyTwoMinutes();
+            $schedule->command('telescope:prune --hours=24')->everyFiveMinutes();
         }
     }
 
