@@ -24,7 +24,7 @@ final class SendThresholdAlertAction
             $this->coin()->external_id,
             $this->currency()->symbol,
             $this->alert->trend,
-            config('app.cache_ttls.threshold_alert_notification'),
+            $this->alert->seconds_between_alerts,
         );
         if ($cache->has()) {
             return;
@@ -36,6 +36,7 @@ final class SendThresholdAlertAction
             $this->alert->value,
             $this->alert->trend,
             $this->average->value,
+            $this->alert->seconds_between_alerts,
         ));
 
         $cache->get();

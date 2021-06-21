@@ -20,6 +20,7 @@ class ThresholdAlertNotification extends Notification implements ShouldQueue
         private float $threshold,
         private bool $trend,
         private float $value,
+        private int $seconds_between_alerts,
     ) {
     }
 
@@ -46,6 +47,7 @@ class ThresholdAlertNotification extends Notification implements ShouldQueue
             'coin_external_id' => $this->coin_external_id,
             'currency_symbol' => $this->currency_symbol,
             'notifiable' => $notifiable,
+            'seconds_between_alerts' => $this->seconds_between_alerts,
             'threshold' => (new CurrencyHelper($this->threshold))->format(),
             'trend' => $this->trend,
             'trend_symbol' => (new TrendHelper($this->trend))->format(),

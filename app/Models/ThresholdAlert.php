@@ -17,6 +17,7 @@ class ThresholdAlert extends Model
     protected $fillable = [
         'coin_id',
         'currency_id',
+        'seconds_between_alerts',
         'trend',
         'user_id',
         'value',
@@ -30,6 +31,7 @@ class ThresholdAlert extends Model
     protected $casts = [
         'coin_id' => 'integer',
         'currency_id' => 'integer',
+        'seconds_between_alerts' => 'integer',
         'trend' => 'boolean',
         'user_id' => 'integer',
         'value' => 'integer',
