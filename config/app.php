@@ -261,6 +261,11 @@ return [
     */
 
     'cache_ttls' => [
+        'threshold_alert_notification' => (int) env(
+            'CACHE_TTLS_THRESHOLD_ALERT_NOTIFICATION',
+            7_200
+        ),
+
         'variation_percentage_notification' => (int) env(
             'CACHE_TTLS_VARIATION_PERCENTAGE_NOTIFICATION',
             7_200

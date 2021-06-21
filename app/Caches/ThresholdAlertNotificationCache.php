@@ -6,18 +6,12 @@ use Illuminate\Support\Facades\Cache;
 
 final class ThresholdAlertNotificationCache
 {
-    /**
-     * Two hours (7,200s).
-     *
-     * @var int
-     */
-    public const TTL = 7_200;
-
     public function __construct(
         private int $user_id,
         private string $coin_external_id,
         private string $currency_symbol,
         private bool $trend,
+        private int $ttl = 7_200,
     ) {
     }
 
@@ -28,7 +22,7 @@ final class ThresholdAlertNotificationCache
 
     public function get(): bool
     {
-        return Cache::remember($this->key(), self::TTL, function () {
+        return Cache::remember($this->key(), $this->ttl, function () {
             return true;
         });
     }
